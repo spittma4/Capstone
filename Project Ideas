@@ -1,8 +1,15 @@
+7. Crawling and Querying Social Networks
+Description: In this project, we will crawl social network data (e.g., Twitter), store them
+in a graph database, conduct queries (e.g., spatial-temporal, keyword, sentimental queries)
+on social networks, and visualize social networks and query results.
+
+Requirements: Internet programming (e.g., C++, C#, Java, Python, etc.), database design,
+algorithm design
 -----------------------------------
 Individual Strengths/Weaknesses:
 -----------------------------------
 Hayden
-  GOOD AT:
+  GOOD AT: Everything
   NOPE:
   
 Jason
@@ -28,4 +35,9 @@ Project Ideas:
 1. scrape twitter/pastebin/reddit to perform analytics on data. perhaps commonly used words in given tasks/locations
 2. Reddit bot that queries the top comments on a reddit thread, goes to Imgur (maybe Twitter instead?) and finds a meme/picture (from Imgur) or 
    a tweet with similar keywords (maybe have it look at only certain Twitter accounts for material?)
-3. 
+3. Visualtion of the data, 
+---- keyword search 
+anti fake news bot
+
+
+
