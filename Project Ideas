@@ -5,6 +5,36 @@ on social networks, and visualize social networks and query results.
 
 Requirements: Internet programming (e.g., C++, C#, Java, Python, etc.), database design,
 algorithm design
+
+-----------------------------------
+Notes from 24 Jan 2018 meeting:
+-----------------------------------
+IDEA: 
+Replies to the subreddit r/TIL threads with a comment w/brief summary and link to our website that will provide more information, 
+analytics, twitter information, etc. in an easily digestible and helpful manner.
+
+PRIMARY INPUT: 
+-Reddit r/TIL subreddit threads
+-Will establish a criteria of which posts to generate content for (ex: >100 karma, x amount of comments, etc.)
+
+WEBSITE:
+-Info on the topic found from Wikipedia (and other sources) found automatically
+-Twitter/tweets about the topic, analytics, etc.
+-Reddit populartiy of the thread (does the general consensus agree with the TIL content and validity? Tone analysis, Watson, etc.)
+-Top reddit comments from thread (if they have a high amount of karma)
+-Infographics, word clouds (from comments in thread, etc.)
+
+TOOLS NEEDED:
+-Database (SQL, JSON, PHP, JavaScript)
+-Python for analysis
+-Tool to determine topic of r/TIL post (TextBlob)
+-Website Programming (JavaScript, HTML, CSS, etc.)
+
+OTHER:
+-WikiPedia API
+-Other News Sources
+-TL;DR reddit bot
+
 -----------------------------------
 Individual Strengths/Weaknesses:
 -----------------------------------
