@@ -17,8 +17,8 @@ def read_collection(collection):
     result = []
     for entry in pre:
         info = (
-            entry['tweet']
-            time['time']
+            entry['_tweet']
+            time['_time']
         )
         result.append(tuple(info))
     return result
