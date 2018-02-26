@@ -14,6 +14,6 @@
 
 * CSS:
   * elements: camelCase
-  *indentation: 2 spaces (editors set to CSS for syntax will do this automatically with a tab)
+  * indentation: 2 spaces (editors set to CSS for syntax will do this automatically with a tab)
  
  
