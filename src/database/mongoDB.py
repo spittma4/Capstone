@@ -16,9 +16,11 @@ def read_collection(collection):
         del item['_id']
     result = []
     for entry in pre:
-        info = (
-            entry['_tweet']
+        tweet = (
+            entry['_tweet'],
             time['_time']
+            #other data should be stored too, maybe names
         )
-        result.append(tuple(info))
+        result.append(tuple(tweet))
     return result
+
