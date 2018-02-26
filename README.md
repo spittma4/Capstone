@@ -1,9 +1,10 @@
 # Capstone
 
-## Style Guide:
+## Style Guide, Naming Conventions:
 * python:
   * variables: camelCase2
   * functions: snake_case
+    * accessors and mutators: snake_cameCase2
   * constants: SCREAMING_SNAKE_CASE
   * argument lists: please keep argument lists consistently ordered for similar argument lists
   * classes: CamelCase
