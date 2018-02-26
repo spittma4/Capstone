@@ -15,10 +15,10 @@ def read_collection(collection):
     for item in pre:
         del item['_id']
     result = []
-    for entry in pre:
+    for item in pre:
         tweet = (
             entry['_tweet'],
-            time['_time']
+            entry['_time']
             #other data should be stored too, maybe names
         )
         result.append(tuple(tweet))
