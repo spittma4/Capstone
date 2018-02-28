@@ -17,7 +17,7 @@ class Core:
 
     # return a bool indicating whether credentials were correct or not
     def check_login(self, email, password):
-        return db.check_login(self, username, password)
+        return db.check_login(self, email, password)
 
     # add a user, returns
     # Given: password is sufficient
@@ -48,16 +48,16 @@ class Core:
     # Twitter
 
     # returns the link the user will be redirected to
-    def twitter_getAuthLink(self, ksuusername):
+    def twitter_getAuthLink(self, email):
         pass
 
     # takes the users key and adds oauth info to the db
-    def twitter_addTwitterInfo(self, ksuusername, twitterNumber):
+    def twitter_addTwitterInfo(self, email, twitterNumber):
         pass
 
     # get a users last tweets in the day range as a list
     # dates are mm-dd-yyyy
-    def twitter_getTweetsRange(self, ksuusername, startDay, endDay):
+    def twitter_getTweetsRange(self, email, startDay, endDay):
         pass
 
     # post a tweet for a user
