@@ -9,6 +9,7 @@
   * argument lists: please keep argument lists consistently ordered for similar argument lists
   * classes: CamelCase
   * indentation: 1 tab (8 spaces)
+  * NO SPACES IN FILENAMES
 
 * mongodb
   * keys should formatted with an underscore in from of terms ie: '_item' or '_tweet'
