@@ -11,16 +11,8 @@ def set_collection(DB,collection):
     return DB.[collection]
 
 def read_collection(collection):
-    pre = list(collection.find())
-    for item in pre:
-        del item['_id']
-    result = []
-    for item in pre:
-        tweet = (
-            entry['_tweet'],
-            entry['_time']
-            #other data should be stored too, maybe names
-        )
-        result.append(tuple(tweet))
+    fromMongo = list(collection.find())
     return result
 
+def write_collection(collection,listDict):
+    
