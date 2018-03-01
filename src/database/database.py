@@ -16,7 +16,7 @@ class Database:
     def generate_salt(self):
         salt = ""
         for i in range(0,15):
-            salt+=random.choice(string.letters)
+            salt+=random.choice(string.ascii_letters)
         return salt
 
     """Alledgedy this will just work thru pymysql when we execute a command
@@ -44,13 +44,18 @@ class Database:
         if(db==None):
             db=self.connection
 
-        salt = generate_salt()
-        hashed = hashlib.sha256(password)
+        salt = self.generate_salt()
+        hashed = hashlib.sha256(password.encode('ascii'))
         password = hashed.hexdigest()
         
         cur = db.cursor()
+        print('yo')
         try:
-            cur.execute("insert into users values()").format(email, password, fullname, salt)
+            print('yo')
+            cur.execute("insert into users values('{}', '{}', '{}', '{}')").format(email, password, fullname, salt)
+            db.commit()
+            #cur.execute("insert into users (email, salt, hash, twitter) values('{}', '{}', '{}', '{}')").format(email, password, fullname, salt)
             return True, None
         except:
+            print('except')
             return False, DATABASE_ERROR
