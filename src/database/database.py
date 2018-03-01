@@ -18,11 +18,12 @@ class Database:
         for i in range(0,15):
             salt+=random.choice(string.letters)
         return salt
-        
+
+    """Alledgedy this will just work thru pymysql when we execute a command
     def sanitize(self, inString):
         #result =
         pass
-
+    """
     def check_login(self, email, password, db=None):
         pass
 
