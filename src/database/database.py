@@ -43,9 +43,14 @@ class Database:
     def insert_user(self, email, password, fullname, db=None):
         if(db==None):
             db=self.connection
+
+        salt = generate_salt()
+        hashed = hashlib.sha256(password)
+        password = hashed.digest()
+        
         cur = db.cursor()
         try:
-            cur.execute("insert into users values()").format(email, password, fullname)
+            cur.execute("insert into users values()").format(email, password, fullname, salt)
             return True, None
         except:
             return False, DATABASE_ERROR
