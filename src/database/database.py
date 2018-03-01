@@ -46,7 +46,7 @@ class Database:
 
         salt = generate_salt()
         hashed = hashlib.sha256(password)
-        password = hashed.digest()
+        password = hashed.hexdigest()
         
         cur = db.cursor()
         try:
