@@ -15,8 +15,13 @@ def tear_down_database(con):
     cur = con.cursor()
     cur.execute("DROP TABLE users")
 
+
+
 if __name__ == "__main__" :
     con=create_database()
     db = Database()
     db.insert_user("jim@school.com", "doggie", "Jim James",con )
+
+    db.check_login("jim@school.com", "doggie")
+    
     #tear_down_database(con)
