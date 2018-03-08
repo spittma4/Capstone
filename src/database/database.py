@@ -9,6 +9,8 @@ import random
 DB_PATH = "localhost"
 DATABASE_ERROR = 1
 PASSWORD_MISMATCH = 2
+USER_DOES_NOT_EXIST = 3
+
 class Database:
     connection=None
     def __init__(self):
@@ -20,12 +22,13 @@ class Database:
             salt+=random.choice(string.ascii_letters)
         return salt
 
-    def get_salt(email, db=None):
+    def get_salt(self, email, db=None):
         if (db==None):
             db = self.connection
-        cursor = db.connection.cursor()
+        cursor = db.cursor()
         try:
-            salt = cursor.fetchall("select salt from users where email == {}".format(email))
+            cursor.execute("select salt from users where email = '{}'".format(email))
+            salt = cursor.fetchone()
             return True, salt
         except:
             return False, DATABASE_ERROR
@@ -34,25 +37,33 @@ class Database:
     def check_login(self, email, password, db=None):
         if (db==None):
             db = self.connection
-        if user_exists(email):
-            result, code = verify_password(email, password)
+        result,code = self.user_exists(email)
+        print("very")
+        print(result)
+        print(code)
+        if result:
+            result, code = self.verify_password(email, password)
             if result:
-                return True, None
+                return True, True
             else:
                 return False, code
             
-    def verify_password(email, password, db=None):
+    def verify_password(self, email, password, db=None):
         if (db==None):
             db = self.connection
-        result, salt = get_salt()
+        result, salt = self.get_salt(email)
         if not result:
             return False, DATABASE_ERROR
-        password += salt
-        hashed = (hashlib.sha256(password.encode('ascii'))).hexdigest()
-        
-        cursor = db.connection.cursor()
+        password += salt[0]
+        hashed = hashlib.sha256(password.encode('ascii'))
+        hashed = hashed.hexdigest()
+        cursor = db.cursor()
         try:
-            dbPassword = cursor.fetchall("select password from users where email == {}".format(email))
+            cursor.execute("select hash from users where email = '{}'".format(email))
+            dbPassword = cursor.fetchall()
+            dbPassword = dbPassword[0][0]
+            print("dbPassword == ",dbPassword)
+            print("hashed == ",hashed)
             if (dbPassword == hashed):
                 return True, None
             else:
@@ -63,13 +74,15 @@ class Database:
     def user_exists(self, email, db=None):
         if(db==None):
             db=self.connection
-        cur = db.connection.cursor()
+        cur = db.cursor()
         try:
-           result = cur.fetchall("select * from users where email = '{}'").format(email)
+           cur.execute("select * from users where email = '{}'".format(email))
+           result = cur.fetchall()
+           print("fuckin")
            if len(result) > 0:
-               return False, None
-           else:
                return True, None
+           else:
+               return False, USER_DOES_NOT_EXIST
         except:
             return False, DATABASE_ERROR
 
@@ -78,17 +91,16 @@ class Database:
             db=self.connection
 
         salt = self.generate_salt()
+        password += salt
         hashed = hashlib.sha256(password.encode('ascii'))
         password = hashed.hexdigest()
         
         cur = db.cursor()
         print('yo')
         try:
-            print('yo')
-            cur.execute("insert into users values('{}', '{}', '{}', '{}')").format(email, password, fullname, salt)
+            cur.execute("insert into users values('{}', '{}', '{}', '{}')".format(email, salt, password, fullname))
             db.commit()
             #cur.execute("insert into users (email, salt, hash, twitter) values('{}', '{}', '{}', '{}')").format(email, password, fullname, salt)
             return True, None
         except:
-            print('except')
             return False, DATABASE_ERROR
