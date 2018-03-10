@@ -1,0 +1,277 @@
+body,html {
+  height: 100%;
+  padding: 0px auto;
+  margin: 0px auto;
+  color: darkred;
+  
+}
+ 
+.wrapper {
+  height: auto;
+  min-height: 100%;
+  margin: 0px auto;
+  padding: 0px auto;
+
+  display: grid;
+  grid-template-columns: 1.5fr 7fr 2fr;
+  grid-template-rows: 1fr 6fr 1fr;
+  background-color: #F0B30D;
+  color: #444;
+
+  grid-template-areas: 
+  "header header login"
+  "sidebar content content"
+  "footer footer footer";
+
+  grid-gap: 5px;
+}
+
+.wrapperLogin {
+  height: auto;
+  min-height: 100%;
+  margin: 0px auto;
+  padding: 0px auto;
+
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 6fr 1fr;
+  background-color: #F0B30D;
+  color: #444;
+
+  grid-template-areas: 
+  "header header header"
+  "content content content"
+  "footer footer footer";
+
+  grid-gap: 5px;
+}
+
+.sidebar {
+  grid-area: sidebar;
+  background-color: #fff;
+}
+
+.content {
+  grid-area: content;
+  position: relative;
+  padding: 1%;
+  border-style: solid;
+  border-width: : 5px;
+  border-image: linear-gradient(to left, #0161B5, #00377B);
+  border-image-slice: 1;
+}
+
+.login {
+  grid-area: login;
+  padding: 10px;
+}
+
+.header {
+  grid-area: header;
+  font-family: "Segoe UI";
+  font-size: 2vh;
+  
+  padding: 1%;
+  color: #DDDDDDFF;
+}
+
+  .header h1 {
+    display: inline;
+    font-size: 8vh;
+    font-weight: bold;
+    color: #F0B30D;
+  }
+
+  .header h2 {
+    display: inline;
+    font-size: 3vh;
+    font-weight: lighter;
+  }
+
+.footer {
+  grid-area: footer;
+  padding: 1%;
+} 
+
+.box {
+  background-color: #DDDDDDFF;
+  color: #000;
+
+}
+
+.header,
+.footer {
+  /*background-color: #0160B4;*/
+  color: #DDDDDDFF;
+  background:  linear-gradient(to left, #0161B5, #003173);
+}
+
+/*Side Navigation Bar CSS*/
+/* Fixed sidenav, full height */
+.sidenav {
+    height: 100%;
+    width: 1fr;
+    position: relative;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background: #F0B30D;
+    overflow-x: hidden;
+    padding-top: 0px;
+}
+
+/* Style the sidenav links and the dropdown button */
+/*-------------------------------------------------*/
+.sidenav a, .dropdown-btn {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-family: "Tahoma", sans-serif;
+    font-size: 20px;
+    color: #003173;
+    display: block;
+    border: none;
+    background: #F0B30D;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    outline: none;
+    align-self: center;
+    height: 7.5%;
+}
+
+/* On mouse-over */
+.sidenav a:hover, .dropdown-btn:hover {
+    color: #f1f1f1;
+}
+
+/* Main content */
+.main {
+    margin-left: 200px; /* Same as the width of the sidenav */
+    font-size: 20px; /* Increased text to enable scrolling */
+    padding: 0px 10px;
+}
+
+/* Add an active class to the active dropdown button */
+.active {
+    background-color: #003173;
+    color: white;
+}
+
+/* Dropdown container (hidden by default). Optional: add a lighter background color and some left padding to change the design of the dropdown content */
+.dropdown-container {
+    display: none;
+    background-color: #003173;
+    padding-left: 8px;
+
+}
+
+/* Optional: Style the caret down icon */
+.fa-caret-down {
+    float: right;
+    padding-right: 8px;
+}
+
+
+/*LOOGIN CSS*/
+@import url(https://fonts.googleapis.com/css?family=Roboto:300);
+
+.login-page {
+  width: 360px;
+  padding: 8% 0 0;
+  margin: auto;
+  display: flex;
+}
+.form {
+  position: relative;
+  z-index: 1;
+  background: #FFFFFF;
+  max-width: 360px;
+  margin: 0 auto 100px;
+  padding: 45px;
+  text-align: center;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+.form input {
+  font-family: "Roboto", sans-serif;
+  outline: 0;
+  background: #f2f2f2;
+  width: 100%;
+  border: 0;
+  margin: 0 0 15px;
+  padding: 15px;
+  box-sizing: border-box;
+  font-size: 14px;
+}
+.form button {
+  font-family: "Roboto", sans-serif;
+  text-transform: uppercase;
+  outline: 0;
+  background: #4CAF50;
+  width: 100%;
+  border: 0;
+  padding: 15px;
+  color: #FFFFFF;
+  font-size: 14px;
+  -webkit-transition: all 0.3 ease;
+  transition: all 0.3 ease;
+  cursor: pointer;
+}
+.form button:hover,.form button:active,.form button:focus {
+  background: #43A047;
+}
+.form .message {
+  margin: 15px 0 0;
+  color: #b3b3b3;
+  font-size: 12px;
+}
+.form .message a {
+  color: #4CAF50;
+  text-decoration: none;
+}
+.form .register-form {
+  display: none;
+}
+.container {
+  position: relative;
+  z-index: 1;
+  max-width: 300px;
+  margin: 0 auto;
+}
+.container:before, .container:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+.container .info {
+  margin: 50px auto;
+  text-align: center;
+}
+.container .info h1 {
+  margin: 0 0 15px;
+  padding: 0;
+  font-size: 36px;
+  font-weight: 300;
+  color: #1a1a1a;
+}
+.container .info span {
+  color: #4d4d4d;
+  font-size: 12px;
+}
+.container .info span a {
+  color: #000000;
+  text-decoration: none;
+}
+.container .info span .fa {
+  color: #EF3B3A;
+}
+body {
+  background: #76b852; /* fallback for old browsers */
+  background: -webkit-linear-gradient(right, #76b852, #8DC26F);
+  background: -moz-linear-gradient(right, #76b852, #8DC26F);
+  background: -o-linear-gradient(right, #76b852, #8DC26F);
+  background: linear-gradient(to left, #76b852, #8DC26F);
+  font-family: "Roboto", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;      
+}
+
