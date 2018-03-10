@@ -35,6 +35,7 @@ class Database:
         
     
     def check_login(self, email, password, db=None):
+        print(password)
         if (db==None):
             db = self.connection
         result,code = self.user_exists(email)
