@@ -18,26 +18,53 @@ class twitterApi:
 
 	MAX_TWEET_LENGTH = 280
 	def tweet(self, accessToken, accessTokenSecret, tweetContents):
-		
-		statuses_resource_url = 'https://api.twitter.com/1.1/statuses/update.json'
-		#tweetContents = urllib.parse.quote_plus(tweetContents)
-		#statuses_resource_url = statuses_resource_url + '?status=' + tweetContents
+		statuses_resource_url = 'https://api.twitter.com/1.1/statuses/update.json?status={}'
+		tweetContents = urllib.parse.quote_plus(tweetContents)
 		consumer = oauth2.Consumer(private.CONSUMER_KEY, private.CONSUMER_SECRET)
 		access = oauth2.Token(accessToken, accessTokenSecret)
 		client = oauth2.Client(consumer, access)
 
-		splitTweet = []
-		startPoint = 0
-		while startPoint < tweetContents.length():
-			 splitTweet.append(tweetContents[startPoint : startPoint + self.MAX_TWEET_LENGTH] if startPoint + self.MAX_TWEET_LENGTH < len(tweetContents) else tweetContents[startPoint : len(tweetContents))
-			startPoint += self.MAX_TWEET_LENGTH
+		part = ''
+		username = ''
+		lastTweetId = ''
+		for character in tweetContents:
+			if len(part) >= self.MAX_TWEET_LENGTH - len(username):
+				if len(lastTweetId) > 0:
+					response, data = client.request(statuses_resource_url.format(part) + '&in_reply_to_status_id={}'.format(lastTweetId), "POST")
+				else:
+					response, data = client.request(statuses_resource_url.format(part), "POST")
+				print("response", response)
+				print("data", data)
+				data = json.loads(data)
+				#for dat in data:
+				#	print(dat)
+				#username = data['user']['screen_name'] + '%20'
+				lastTweetId = data['id_str']
+				#part = '' + username
+				part = '' 
+			part += character
 
-		print(tweetContents)
-		print('\n\n\n\n')
-		for e in splitTweet:
-			print(e)
+		if len(part) > 0:
+			response, data = client.request(statuses_resource_url.format(part) + '&in_reply_to_status_id={}'.format(lastTweetId), "POST")
 
-		#response, data = client.request(statuses_resource_url, "POST")
+	def get_tweets_since(self, accessToken, accessTokenSecret, twitter_name, last_stored_id=None):
+		resource_url = 'https://api.twitter.com/1.1/search/tweets.json'
+		resource_url += '?q=' + urllib.parse.quote_plus(twitter_name) + '&tweet_mode=extended'
+		if last_stored_id != None:
+			resource_url += '&since_id={}'.format(last_stored_id)
+		consumer = oauth2.Consumer(private.CONSUMER_KEY, private.CONSUMER_SECRET)
+		access = oauth2.Token(accessToken, accessTokenSecret)
+		client = oauth2.Client(consumer, access)
+		response, data = client.request(resource_url)
+		data = json.loads(data)
+		tweets = data['statuses']
+		for tweet in tweets:
+			print(tweet['full_text'])
+		
+	
+	# get replies to a tweet up to a given id
+	def get_replies(self, tweet_id, last_stored_id = None):
+		pass
 
 	def get_signUpUrl(self): 
 		pass
