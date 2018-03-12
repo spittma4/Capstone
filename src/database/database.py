@@ -35,19 +35,16 @@ class Database:
         
     
     def check_login(self, email, password, db=None):
-        print(password)
         if (db==None):
             db = self.connection
         result,code = self.user_exists(email)
-        print("very")
-        print(result)
-        print(code)
         if result:
             result, code = self.verify_password(email, password)
             if result:
                 return True, True
             else:
                 return False, code
+        return False, False
             
     def verify_password(self, email, password, db=None):
         if (db==None):
@@ -63,8 +60,6 @@ class Database:
             cursor.execute("select hash from users where email = '{}'".format(email))
             dbPassword = cursor.fetchall()
             dbPassword = dbPassword[0][0]
-            print("dbPassword == ",dbPassword)
-            print("hashed == ",hashed)
             if (dbPassword == hashed):
                 return True, None
             else:
@@ -79,7 +74,6 @@ class Database:
         try:
            cur.execute("select * from users where email = '{}'".format(email))
            result = cur.fetchall()
-           print("fuckin")
            if len(result) > 0:
                return True, None
            else:
@@ -97,7 +91,6 @@ class Database:
         password = hashed.hexdigest()
         
         cur = db.cursor()
-        print('yo')
         try:
             cur.execute("insert into users values('{}', '{}', '{}', '{}')".format(email, salt, password, fullname))
             db.commit()

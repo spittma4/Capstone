@@ -1,3 +1,3 @@
 <body>
-I am a home page
+Welcome, {{username}}!
 </body>

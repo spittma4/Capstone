@@ -17,8 +17,9 @@ class Core:
 
     # return a bool indicating whether credentials were correct or not
     def check_login(self, email, password):
-        print(email, password)
-        return self.db.check_login(email, password)
+        res, code = self.db.check_login(email, password)
+        if res:
+            return True
 
     # add a user, returns
     # Given: password is sufficient
@@ -27,17 +28,14 @@ class Core:
     INVALID_EMAIL = 2
     DATABASE_FAILURE = 3
     def sign_up(self, email, password, fullname):
-        print("in sign up function")
         # check if email is duplicate
         res, code = self.db.user_exists(email)
         if res:
-            print("user exists")
-        #    return False, self.USER_EXISTS
+            return False, self.USER_EXISTS
 
         # add the user
         else:
             res, code = self.db.insert_user(email, password, fullname)
-            print(res, code)
             if not res:
                 return False, self.DATABASE_FAILURE
             else:

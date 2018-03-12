@@ -18,7 +18,8 @@ def add_session(username):
 #Function to get a cookie once logged in
 def get_session():
     cookie = request.get_cookie("userCookie")
-
+    if cookie not in _logins:
+        redirect('/login/initial')
     if cookie:
         return _logins[cookie]
     else:
@@ -36,11 +37,11 @@ def root():
 def home():
     username = get_session()
 
-    return template('home')
+    return template('home', username=get_session())
 
-@route('/signup')
-def signup():
-    return(template('signup'))
+@route('/signup/<status>')
+def signup(status):
+    return(template('signup', status=status))
 
 
 @post('/auth')
@@ -61,14 +62,15 @@ def adduser():
     password = request.forms.get("password")
     fullname = request.forms.get("fullname")
 
-    print(username)
-    print(password)
-    print(fullname)
     res, code =_coreKSU.sign_up(username, password, fullname)
-    #print("in adduser() ", res, code)
-    if not res:
-        return "code " + str(code)
-    return "success?" 
+    if res:
+        redirect('/login')
+    else:
+        if code == _coreKSU.USER_EXISTS:
+            message = 'User already exists.'
+        else:
+            message = 'Error processing request.'
+        redirect('/signup/{}'.format(message))
 
 
 run(host='0.0.0.0')
