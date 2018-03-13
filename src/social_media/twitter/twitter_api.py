@@ -53,21 +53,41 @@ class twitterApi:
 		if last_stored_id != None:
 			resource_url += '&since_id={}'.format(last_stored_id)
 		consumer = oauth2.Consumer(private.CONSUMER_KEY, private.CONSUMER_SECRET)
-		access = oauth2.Token(accessToken, accessTokenSecret)
-		client = oauth2.Client(consumer, access)
+	#	access = oauth2.Token(accessToken, accessTokenSecret)
+		client = oauth2.Client(consumer)
 		response, data = client.request(resource_url)
 		data = json.loads(data)
 		tweets = data['statuses']
 		for tweet in tweets:
 			print(tweet['full_text'])
-		
 	
 	# get replies to a tweet up to a given id
 	def get_replies(self, tweet_id, last_stored_id = None):
 		pass
 
-	def get_signUpUrl(self): 
-		pass
+	request_tokens = {}
 
-	def get_userAccess(self):
-		pass
+	def pending_access(self, twitter_name):
+		return twitter_name in request_tokens
+
+	def get_signUpUrl(self, twitter_name): 
+		resource_url = 'https://api.twitter.com/oauth/request_token?x_auth_access_type=write&oauth_callback=oob'
+		authorize_url = 'https://api.twitter.com/oauth/authorize?oauth_token={token}'
+		consumer = oauth2.Consumer(private.CONSUMER_KEY, private.CONSUMER_SECRET)
+		client = oauth2.Client(consumer)
+		response, data = client.request(resource_url)
+		data = dict(urllib.parse.parse_qsl(data.decode("utf-8")))
+		self.request_tokens[twitter_name] = (data['oauth_token'], data['oauth_token_secret'])
+		return authorize_url.format(token=data['oauth_token'])
+
+	def get_userAccess(self, pin, twitter_name):
+		access_token_url = 'https://api.twitter.com/oauth/access_token'
+		token = oauth2.Token(self.request_tokens[twitter_name][0], self.request_tokens[twitter_name][1])
+		token.set_verifier(pin)
+		consumer = oauth2.Consumer(private.CONSUMER_KEY, private.CONSUMER_SECRET)
+		client = oauth2.Client(consumer, token)
+		response, data = client.request(access_token_url, "POST")
+		access_token = dict(urllib.parse.parse_qsl(data.decode('utf-8')))
+
+		print("token: {}, secret: {}".format(access_token['oauth_token'], access_token['oauth_token_secret']))
+		return access_token['oauth_token'], access_token['oauth_token_secret']

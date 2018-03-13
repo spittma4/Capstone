@@ -9,9 +9,9 @@ import private
 from twitter_api import twitterApi
 
 class TestTwitterApi(unittest.TestCase):
+	"""
 	def test_001_dependencies_installed(self):
 		pass
-	"""
 	def test_002_small_random_tweet_owner(self):
 		testApi = twitterApi()
 		word = ''
@@ -19,11 +19,12 @@ class TestTwitterApi(unittest.TestCase):
 			word += str(int(random.random() * 10))
 		testApi.tweet(private.OWNER_ACCESS_TOKEN, private.OWNER_ACCESS_TOKEN_SECRET, word)
 		twitterPage = requests.get('https://twitter.com/hknapp4ksu')
-#		self.assertEqual(word in twitterPage.text, True)
+		self.assertEqual(word in twitterPage.text, True)
 
 	def test_003_larger_random_tweet_owner(self):
 		testApi = twitterApi()
 		word = ''
+
 		tweetLength = 700
 		while len(word) < tweetLength:
 			word += str(int(random.random() * 10))
@@ -60,11 +61,22 @@ There really is a Linux, and these people are using it, but it is just a part of
 			if word in twitterPage:
 				total += 1
 		self.assertGreaterEqual(total + 10, segmentLength)
-	"""
-	def test_002_get_tweets(self):
+	def test_005_get_tweets(self):
 		testApi = twitterApi()
 		testApi.get_tweets_since(private.OWNER_ACCESS_TOKEN, private.OWNER_ACCESS_TOKEN_SECRET, 'hknapp4ksu')
-		
+	def test_006_get_auth_url(self):
+		testApi = twitterApi()
+		url = testApi.get_signUpUrl()
+		print(url)
+	"""
 
+	def test_007_get_tokens(self):
+		testApi = twitterApi()
+		url = testApi.get_signUpUrl('hknapp4ksu')
+		print(url)
+		pin = str(input("Enter pin: "))
+		access_token, access_token_secret = testApi.get_userAccess(pin, 'hknapp4ksu')
+		print("token: {}, secret: {}".format(access_token, access_token_secret))
+		
 if __name__ == '__main__':
 	unittest.main(verbosity = 2)
