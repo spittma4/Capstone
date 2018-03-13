@@ -89,12 +89,42 @@ class Database:
         password += salt
         hashed = hashlib.sha256(password.encode('ascii'))
         password = hashed.hexdigest()
-        
         cur = db.cursor()
         try:
-            cur.execute("insert into users values('{}', '{}', '{}', '{}')".format(email, salt, password, fullname))
+            cur.execute("insert into users values('{}', '{}', '{}', '{}',NULL,NULL,NULL)".format(email, salt, password, fullname))
             db.commit()
             #cur.execute("insert into users (email, salt, hash, twitter) values('{}', '{}', '{}', '{}')").format(email, password, fullname, salt)
+            return True, None
+        except:
+            return False, DATABASE_ERROR
+
+    def add_twitter(self, username, access, access_secret, email, db=None):
+        if(db==None):
+            db=self.connection
+
+        cur = db.cursor()
+        try:
+            cur.execute("""INSERT INTO twitter (
+            username,
+            access,
+            access_secret
+            ) VALUES (
+            '{}',
+            '{}',
+            '{}'
+            )
+            """.format(
+                username,
+                access,
+                access_secret
+            ))
+            cur.execute("""UPDATE users SET 
+            twittername ='{}'
+            WHERE
+            email = '{}'
+            """.format(username, email)
+            )
+            db.commit()
             return True, None
         except:
             return False, DATABASE_ERROR
