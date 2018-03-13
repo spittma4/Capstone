@@ -64,7 +64,7 @@ def adduser():
 
     res, code =_coreKSU.sign_up(username, password, fullname)
     if res:
-        redirect('/login')
+        redirect('/login/initial')
     else:
         if code == _coreKSU.USER_EXISTS:
             message = 'User already exists.'
@@ -72,6 +72,12 @@ def adduser():
             message = 'Error processing request.'
         redirect('/signup/{}'.format(message))
 
+@route('/signout')
+def signout():
+    cookie = request.get_cookie("userCookie")
+    _logins.pop(cookie)
+    redirect('/')
+    
 
-run(host='0.0.0.0')
+run(host='0.0.0.0', port=80)
 
