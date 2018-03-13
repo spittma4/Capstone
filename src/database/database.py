@@ -128,3 +128,35 @@ class Database:
             return True, None
         except:
             return False, DATABASE_ERROR
+
+    def add_reddit(self, username, access, access_secret, email, db=None):
+        if(db==None):
+            db=self.connection
+
+        cur = db.cursor()
+        try:
+            cur.execute("""INSERT INTO reddit (
+            username,
+            access,
+            access_secret
+            ) VALUES (
+            '{}',
+            '{}',
+            '{}'
+            )
+            """.format(
+                username,
+                access,
+                access_secret
+            ))
+            cur.execute("""UPDATE users SET 
+            redditname ='{}'
+            WHERE
+            email = '{}'
+            """.format(username, email)
+            )
+            db.commit()
+            return True, None
+        except:
+            return False, DATABASE_ERROR
+
