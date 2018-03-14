@@ -129,7 +129,31 @@ class Database:
         except:
             return False, DATABASE_ERROR
 
-    def add_reddit(self, username, access, access_secret, email, db=None):
+    def fetch_twitter(self, email, username, db=None):
+        if(db==None):
+            db=self.connection
+
+        cur = db.cursor()
+        try:
+            cur.execute("""
+            SELECT * 
+            FROM twitter AS t
+            JOIN users as u
+            WHERE u.twittername = t.'{}'
+            AND u.email = '{}'
+                     
+            """.format(
+                username,
+                email
+            ))
+            result = cur.fetchall()
+            print(type(result))
+            print(result)
+            return True, None
+        except:
+            return False, DATABASE_ERROR
+
+    def add_reddit(self, username, user_id, user_id_secret, access, email, db=None):
         if(db==None):
             db=self.connection
 
@@ -137,17 +161,20 @@ class Database:
         try:
             cur.execute("""INSERT INTO reddit (
             username,
-            access,
-            access_secret
+            user_id,
+            user_id_secret,            
+            access
             ) VALUES (
+            '{}',
             '{}',
             '{}',
             '{}'
             )
             """.format(
                 username,
-                access,
-                access_secret
+                user_id,
+                user_id_secret,
+                access
             ))
             cur.execute("""UPDATE users SET 
             redditname ='{}'
