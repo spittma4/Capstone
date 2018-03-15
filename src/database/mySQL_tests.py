@@ -17,9 +17,10 @@ def get_connection():
 
 def tear_down_database(con):
     cur = con.cursor()
+    cur.execute("DROP TABLE users")
     cur.execute("DROP TABLE reddit")
     cur.execute("DROP TABLE twitter")
-    cur.execute("DROP TABLE users")
+    cur.commit()
     
 if __name__ == "__main__" :
     con=get_connection()
@@ -28,7 +29,7 @@ if __name__ == "__main__" :
     #res, code =db.insert_user("jim@school.com", "doggie", "Jim James",con )
     #print(res, code)
     #print(db.check_login("jim@school.com", "doggie"))
-    #res, code = db.add_twitter("jjames", "token","speshul secrets", "jim@school.com", con)
+    res, code = db.add_twitter("jjames", "token","speshul secrets", "jim@school.com", con)
     #res, code = db.fetch_twitter("jim@school.com","jjames")
     #print(res, code)
     #res, code = db.add_reddit("leddituser", "token","speshul secrets", "jim@school.com", con)

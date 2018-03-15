@@ -169,7 +169,7 @@ class Database:
             print("executed")
             result = cur.fetchall()
             print(type(result))
-            result = tuple([result[0][4]])
+            result = str(result[0][4])
             print(result)
             return result, None
         except:
