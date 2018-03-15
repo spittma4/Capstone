@@ -49,8 +49,8 @@ class Core:
     # Twitter
 
     # returns the link the user will be redirected to
-    def twitter_getAuthLink(self, email):
-        pass
+    def twitter_getAuthLink(self, username, twitter_name):
+        return self.twitter.get_signUpUrl(self, email, twitter_name)
 
     # takes the users key and adds oauth info to the db
     def twitter_addTwitterInfo(self, email, twitterNumber):
@@ -59,6 +59,10 @@ class Core:
     # get a users last tweets in the day range as a list
     # dates are mm-dd-yyyy
     def twitter_getTweetsRange(self, email, startDay, endDay):
+        pass
+
+    # see if the api is pending a pin
+    def waiting_for_pin(self, twittername):
         pass
 
     # post a tweet for a user

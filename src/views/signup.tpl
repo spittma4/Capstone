@@ -1,4 +1,4 @@
-<body>
+<body style="background-color:lightblue;">
 <p>Signup Information:</p>
 <form action="/adduser" method="POST">
 	Email:<input type="text" size="20" maxlength="100" name = "username" id="username"><br>

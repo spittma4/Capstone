@@ -47,9 +47,9 @@ class twitterApi:
 		if len(part) > 0:
 			response, data = client.request(statuses_resource_url.format(part) + '&in_reply_to_status_id={}'.format(lastTweetId), "POST")
 
-	def get_tweets_since(self, accessToken, accessTokenSecret, twitter_name, last_stored_id=None):
+	def get_tweets_since(self, accessToken, accessTokenSecret, email, last_stored_id=None):
 		resource_url = 'https://api.twitter.com/1.1/search/tweets.json'
-		resource_url += '?q=' + urllib.parse.quote_plus(twitter_name) + '&tweet_mode=extended'
+		resource_url += '?q=' + urllib.parse.quote_plus(email) + '&tweet_mode=extended'
 		if last_stored_id != None:
 			resource_url += '&since_id={}'.format(last_stored_id)
 		consumer = oauth2.Consumer(private.CONSUMER_KEY, private.CONSUMER_SECRET)
@@ -67,22 +67,22 @@ class twitterApi:
 
 	request_tokens = {}
 
-	def pending_access(self, twitter_name):
-		return twitter_name in request_tokens
+	def pending_access(self, email):
+		return email in request_tokens
 
-	def get_signUpUrl(self, twitter_name): 
+	def get_signUpUrl(self, email): 
 		resource_url = 'https://api.twitter.com/oauth/request_token?x_auth_access_type=write&oauth_callback=oob'
 		authorize_url = 'https://api.twitter.com/oauth/authorize?oauth_token={token}'
 		consumer = oauth2.Consumer(private.CONSUMER_KEY, private.CONSUMER_SECRET)
 		client = oauth2.Client(consumer)
 		response, data = client.request(resource_url)
 		data = dict(urllib.parse.parse_qsl(data.decode("utf-8")))
-		self.request_tokens[twitter_name] = (data['oauth_token'], data['oauth_token_secret'])
+		self.request_tokens[email] = (data['oauth_token'], data['oauth_token_secret'])
 		return authorize_url.format(token=data['oauth_token'])
 
-	def get_userAccess(self, pin, twitter_name):
+	def get_userAccess(self, pin, email):
 		access_token_url = 'https://api.twitter.com/oauth/access_token'
-		token = oauth2.Token(self.request_tokens[twitter_name][0], self.request_tokens[twitter_name][1])
+		token = oauth2.Token(self.request_tokens[email][0], self.request_tokens[email][1])
 		token.set_verifier(pin)
 		consumer = oauth2.Consumer(private.CONSUMER_KEY, private.CONSUMER_SECRET)
 		client = oauth2.Client(consumer, token)

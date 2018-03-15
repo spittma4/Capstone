@@ -19,19 +19,21 @@ def add_session(username):
 def get_session():
     cookie = request.get_cookie("userCookie")
     if cookie not in _logins:
-        redirect('/login/initial')
+        redirect('/login')
     if cookie:
         return _logins[cookie]
     else:
-        redirect('/login/initial')
+        redirect('/login')
 
-@route('/login/<status>')
-def login(status):
+@route('/login')
+def login(status=''):
+    status = request.params.get("status")
     return template('login', status=status)
 
 @route('/')
 def root():
-    redirect('/login/initial')
+    get_session()
+    redirect('/home')
 
 @route('/home')
 def home():
@@ -41,6 +43,7 @@ def home():
 
 @route('/signup/<status>')
 def signup(status):
+    status = request.param.get("status")
     return(template('signup', status=status))
 
 
@@ -54,7 +57,7 @@ def auth():
 
         redirect('/home')
     else:
-        redirect('/login/fail')
+        redirect('/login?status=fail')
 
 @post('/adduser')
 def adduser():
@@ -64,7 +67,7 @@ def adduser():
 
     res, code =_coreKSU.sign_up(username, password, fullname)
     if res:
-        redirect('/login/initial')
+        redirect('/login')
     else:
         if code == _coreKSU.USER_EXISTS:
             message = 'User already exists.'
@@ -79,5 +82,5 @@ def signout():
     redirect('/')
     
 
-run(host='0.0.0.0', port=80)
+run(host='0.0.0.0', port=8080)
 
