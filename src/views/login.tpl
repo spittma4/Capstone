@@ -1,4 +1,7 @@
-<body>
+<head>
+
+</head>
+<body style="background-color:lightblue;">
 <p>Login Information:</p>
 <form action="/auth" method="POST">
         Email:<input type="text" size="20" maxlength="100" name = "username" id="username"><br>
