@@ -153,6 +153,28 @@ class Database:
             return result, None
         except:
             return False, DATABASE_ERROR
+    def fetch_twittername(self, email, db=None):
+        if(db==None):
+            db=self.connection
+
+        cur = db.cursor()
+        try:
+            cur.execute("""
+            SELECT * 
+            FROM users as u
+            WHERE u.email = '{}'      
+            """.format(
+                email
+            ))
+            print("executed")
+            result = cur.fetchall()
+            print(type(result))
+            result = tuple([result[0][4]])
+            print(result)
+            return result, None
+        except:
+            return False, DATABASE_ERROR
+
 
     def add_reddit(self, username, user_id, user_id_secret, access, email, db=None):
         if(db==None):
