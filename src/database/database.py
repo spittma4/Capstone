@@ -137,19 +137,20 @@ class Database:
         try:
             cur.execute("""
             SELECT * 
-            FROM twitter AS t
+            FROM twitter as t
             JOIN users as u
-            WHERE u.twittername = t.'{}'
-            AND u.email = '{}'
-                     
+            WHERE u.twittername = '{}'
+            AND u.email = '{}'      
             """.format(
                 username,
                 email
             ))
+            print("executed")
             result = cur.fetchall()
             print(type(result))
+            result = tuple([result[0][0],result[0][1],result[0][2]])
             print(result)
-            return True, None
+            return result, None
         except:
             return False, DATABASE_ERROR
 
