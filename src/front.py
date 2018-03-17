@@ -41,10 +41,12 @@ def home():
 
     return template('home', username=get_session())
 
-@route('/signup/<status>')
-def signup(status):
-    status = request.param.get("status")
-    return(template('signup', status=status))
+@route('/signup')
+def signup():
+    status = request.params.get("status")
+    if status == None:
+        status = ''
+    return template('signup', status=status)
 
 
 @post('/auth')
@@ -70,17 +72,48 @@ def adduser():
         redirect('/login')
     else:
         if code == _coreKSU.USER_EXISTS:
-            message = 'User already exists.'
+            status = 'User already exists.'
         else:
-            message = 'Error processing request.'
-        redirect('/signup/{}'.format(message))
+            status = 'Error processing request.'
+        redirect('/signup?status={}'.format(status))
 
 @route('/signout')
 def signout():
     cookie = request.get_cookie("userCookie")
     _logins.pop(cookie)
     redirect('/')
-    
 
-run(host='0.0.0.0', port=8080)
+@route('/twitter')
+def twitter():
+    twitterlink = ''
+    username = get_session()
+    pendingTwitter = not _coreKSU.twitter_hasAccount(username)
+    ntweets = ''
+    tweets = ''
+    ntweets = request.params.count
+    print("pending: ", pendingTwitter)
+    if ntweets == '':
+        ntweets = 5
+    else:
+        ntweets = int(ntweets)
+    if pendingTwitter:
+        twitterlink = _coreKSU.twitter_getAuthLink(username)
+    else:
+        tweets = _coreKSU.twitter_getTweetsN(username, ntweets)
+    return template('twitter', tweets=tweets, twitterlink=twitterlink, pendingTwitter=pendingTwitter)
+
+@post('/inserttwitter')
+def inserttwitter():
+    username = get_session()
+    pin = request.forms.get("pin")
+    _coreKSU.twitter_addTwitterInfo(username, pin)
+
+@post('/tweet')
+def tweet():
+    username = get_session()
+    text = request.forms.text
+    _coreKSU.twitter_postTweet(username, text)
+    redirect('/twitter')
+
+run(host='0.0.0.0', port=80)
 

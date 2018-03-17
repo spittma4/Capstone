@@ -5,12 +5,15 @@
 # Stuart Mckaige
 
 from database.database import Database
+from social_media.twitter import twitter_api
 
 class Core:
     db = None
+    twitter = None
 
     def __init__(self):
         self.db = Database()
+        self.twitter = twitter_api.twitterApi()
 
 ####################################################################################
     # user functions
@@ -44,26 +47,36 @@ class Core:
 
 ####################################################################################
     # social media functions
-#    def 
-
     # Twitter
 
     # returns the link the user will be redirected to
-    def twitter_getAuthLink(self, username, twitter_name):
-        return self.twitter.get_signUpUrl(self, email, twitter_name)
+    def twitter_getAuthLink(self, email):
+        return self.twitter.get_signUpUrl(email)
 
     # takes the users key and adds oauth info to the db
-    def twitter_addTwitterInfo(self, email, twitterNumber):
-        pass
+    def twitter_addTwitterInfo(self, email, pin):
+        access_token, access_token_secret = self.twitter.get_userAccess(pin, email)
+        twitterName = 'hknapp4ksu'
 
     # get a users last tweets in the day range as a list
     # dates are mm-dd-yyyy
     def twitter_getTweetsRange(self, email, startDay, endDay):
         pass
 
-    # see if the api is pending a pin
-    def waiting_for_pin(self, twittername):
-        pass
+    def twitter_getTweetsN(self, email, n):
+        twitterName, code = self.db.fetch_twittername(email)
+        access, code = self.db.fetch_twitter(email, twitterName)
+        tweets = self.twitter.get_tweets_since(access[1], access[2], twitterName, None, n)
+        return tweets
 
     # post a tweet for a user
-#    def 
+    def twitter_postTweet(self, email, contents):
+        twitterName, code = self.db.fetch_twittername(email)
+        access, code = self.db.fetch_twitter(email, twitterName)
+        self.twitter.tweet(access[1], access[2], contents)
+
+    def twitter_hasAccount(self, email):
+        res = self.db.fetch_twittername(email)
+        if res[0] == 'None':
+            return False
+        return True

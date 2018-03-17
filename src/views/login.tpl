@@ -13,7 +13,7 @@
 %if (status == 'fail'):
 	Email or password were incorrect.
 %end
-<p>Need an account?<br><a href="/signup/new">Create one here!</a><p>
+<p>Need an account?<br><a href="/signup">Create one here!</a><p>
 
 </body>
 
