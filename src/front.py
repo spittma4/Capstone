@@ -115,5 +115,5 @@ def tweet():
     _coreKSU.twitter_postTweet(username, text)
     redirect('/twitter')
 
-run(host='0.0.0.0', port=80)
+run(host='0.0.0.0', port=8080)
 

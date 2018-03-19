@@ -57,6 +57,7 @@ class Core:
     def twitter_addTwitterInfo(self, email, pin):
         access_token, access_token_secret = self.twitter.get_userAccess(pin, email)
         twitterName = 'hknapp4ksu'
+        self.db.add_twitter(twitterName, access_token, access_token_secret, email)
 
     # get a users last tweets in the day range as a list
     # dates are mm-dd-yyyy
