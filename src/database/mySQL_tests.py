@@ -3,6 +3,7 @@
 from database import Database
 import pymysql
 import unittest
+import private
 DB_PATH = "localhost"
 
 def create_database(connection):
@@ -12,7 +13,7 @@ def create_database(connection):
     cur.execute("""CREATE TABLE users (email varchar(100),salt varchar(100),hash varchar(100),fullname varchar(100),twittername varchar(100),redditname varchar(100), instagramname varchar(100),foreign key (twittername) references twitter(username),foreign key (redditname) references reddit(username))""")
 
 def get_connection():
-    connection = pymysql.connect(host=DB_PATH, user="root", database="prod")
+    connection = pymysql.connect(host=DB_PATH, user="root", password=private.password,database="prod")
     return connection
 
 def tear_down_database(con):
@@ -33,7 +34,9 @@ if __name__ == "__main__" :
     #res, code = db.add_twitter("jjames", "token","speshul secrets", "jim@school.com", con)
     #res, code = db.fetch_twitter("jim@school.com","jjames")
 #    print(res, code)
-    res, code = db.add_reddit("leddituser", "token","speshul secrets", "air_freshener","jim@school.com", con)
+    #res, code = db.add_reddit("leddituser2", "token","speshul secrets", "air_freshener","jim2@school.com", con)
     #res, code = db.fetch_twittername("jim@school.com")
+    res, code = db.fetch_redditname("jim@school.com")
     print(res,code)
-    
+    res, code = db.fetch_reddit("jim@school.com","leddituser" )
+    print(res,code)

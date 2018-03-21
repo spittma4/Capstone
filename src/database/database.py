@@ -1,6 +1,7 @@
 #Jack
 #Stuart
 
+import private
 import string
 import pymysql
 import hashlib
@@ -14,7 +15,8 @@ USER_DOES_NOT_EXIST = 3
 class Database:
     connection=None
     def __init__(self):
-        self.connection = pymysql.connect(host=DB_PATH, user="root", database="prod")
+        print(private.password)
+        self.connection = pymysql.connect(host=DB_PATH, user="root", password=private.password, database="prod")
 
     def generate_salt(self):
         salt = ""
@@ -150,6 +152,7 @@ class Database:
             return result, None
         except:
             return False, DATABASE_ERROR
+
     def fetch_twittername(self, email, db=None):
         if(db==None):
             db=self.connection
@@ -207,3 +210,45 @@ class Database:
         except:
             return False, DATABASE_ERROR
 
+    def fetch_redditname(self, email, db=None):
+        if(db==None):
+            db=self.connection
+
+        cur = db.cursor()
+        try:
+            cur.execute("""
+            SELECT * 
+            FROM users as u
+            WHERE u.email = '{}'      
+            """.format(
+                email
+            ))
+            result = cur.fetchall()
+            result = str(result[0][5])
+            print("result in fetch_redditname: ",result)
+            return result, None
+        except:
+            return False, DATABASE_ERROR
+    
+    def fetch_reddit(self, email, username, db=None):
+        if(db==None):
+            db=self.connection
+
+        cur = db.cursor()
+        try:
+            cur.execute("""
+            SELECT * 
+            FROM reddit as r
+            JOIN users as u
+            WHERE u.redditname = '{}'
+            AND u.email = '{}'      
+            """.format(
+                username,
+                email
+            ))
+            result = cur.fetchall()
+            result = tuple([result[0][0],result[0][1],result[0][2], result[0][3]])
+            print("result in fetch_reddit: ", result)
+            return result, None
+        except:
+            return False, DATABASE_ERROR
