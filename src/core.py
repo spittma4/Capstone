@@ -73,6 +73,7 @@ class Core:
     # post a tweet for a user
     def twitter_postTweet(self, email, contents):
         twitterName, code = self.db.fetch_twittername(email)
+        print('###############################################################################################################################################')
         access, code = self.db.fetch_twitter(email, twitterName)
         self.twitter.tweet(access[1], access[2], contents)
 

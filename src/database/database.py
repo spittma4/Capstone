@@ -145,11 +145,8 @@ class Database:
                 username,
                 email
             ))
-            print("executed")
             result = cur.fetchall()
-            print(type(result))
             result = tuple([result[0][0],result[0][1],result[0][2]])
-            print(result)
             return result, None
         except:
             return False, DATABASE_ERROR
@@ -166,11 +163,8 @@ class Database:
             """.format(
                 email
             ))
-            print("executed")
             result = cur.fetchall()
-            print(type(result))
             result = str(result[0][4])
-            print(result)
             return result, None
         except:
             return False, DATABASE_ERROR

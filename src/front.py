@@ -91,7 +91,6 @@ def twitter():
     ntweets = ''
     tweets = ''
     ntweets = request.params.count
-    print("pending: ", pendingTwitter)
     if ntweets == '':
         ntweets = 5
     else:

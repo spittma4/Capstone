@@ -18,6 +18,9 @@ class twitterApi:
 
     MAX_TWEET_LENGTH = 280
     def tweet(self, accessToken, accessTokenSecret, tweetContents):
+        print("Hello from the tweet function!")
+        print("Tweet contents: {}".format(tweetContents))
+        print(accessToken, accessTokenSecret)
         statuses_resource_url = 'https://api.twitter.com/1.1/statuses/update.json?status={}'
         tweetContents = urllib.parse.quote_plus(tweetContents)
         consumer = oauth2.Consumer(private.CONSUMER_KEY, private.CONSUMER_SECRET)
@@ -27,12 +30,18 @@ class twitterApi:
         part = ''
         username = ''
         lastTweetId = ''
+        response, data = client.request(statuses_resource_url.format(tweetContents), "POST")
+        """
         for character in tweetContents:
             if len(part) >= self.MAX_TWEET_LENGTH - len(username):
                 if len(lastTweetId) > 0:
                     response, data = client.request(statuses_resource_url.format(part) + '&in_reply_to_status_id={}'.format(lastTweetId), "POST")
+                    print("Hello from the tweet function!2")
                 else:
                     response, data = client.request(statuses_resource_url.format(part), "POST")
+                    print("Hello from the tweet function!1")
+                    print(response)
+                    print(data)
                 data = json.loads(data)
                 lastTweetId = data['id_str']
                 part = '' 
@@ -40,6 +49,7 @@ class twitterApi:
 
         if len(part) > 0:
             response, data = client.request(statuses_resource_url.format(part) + '&in_reply_to_status_id={}'.format(lastTweetId), "POST")
+        """
 
     def get_tweets_since(self, accessToken, accessTokenSecret, twittername, last_stored_id=None, numberOfTweets=100):
         resource_url = 'https://api.twitter.com/1.1/search/tweets.json'
@@ -53,10 +63,6 @@ class twitterApi:
         tweets = data['statuses']
         retTweets = []
         for tweet in tweets:
-            #if tweet['screen_name'] == twittername:
-            #    retTweets.append((tweet['full_text'], tweet['favorite_count'], tweet['retweet_count']))
-            if 'screen_name' in tweet:
-                print(tweet['screen_name'])
             retTweets.append((tweet['full_text'], tweet['favorite_count'], tweet['retweet_count']))
         return retTweets
             
