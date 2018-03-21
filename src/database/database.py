@@ -99,6 +99,26 @@ class Database:
             return True, None
         except:
             return False, DATABASE_ERROR
+            
+    def fetch_fullname(self, email, db=None):
+        if(db==None):
+            db=self.connection
+
+        cur = db.cursor()
+        try:
+            cur.execute("""
+            SELECT * 
+            FROM users as u
+            WHERE u.email = '{}'      
+            """.format(
+                email
+            ))
+            result = cur.fetchall()
+            result = str(result[0][3])
+            return result, None
+        except:
+            return False, DATABASE_ERROR
+
 
     def add_twitter(self, username, access, access_secret, email, db=None):
         if(db==None):
