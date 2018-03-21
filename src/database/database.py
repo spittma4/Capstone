@@ -170,7 +170,8 @@ class Database:
             return False, DATABASE_ERROR
 
 
-    def add_reddit(self, username, user_id, user_id_secret, access, email, db=None):
+    def add_reddit(self, username, access, access_secret, refresh_token, email, db=None):
+        print(username, access, access_secret, refresh_token, email)
         if(db==None):
             db=self.connection
 
@@ -178,9 +179,9 @@ class Database:
         try:
             cur.execute("""INSERT INTO reddit (
             username,
-            user_id,
-            user_id_secret,            
-            access
+            access,
+            access_secret,            
+            refresh_token
             ) VALUES (
             '{}',
             '{}',
@@ -189,16 +190,18 @@ class Database:
             )
             """.format(
                 username,
-                user_id,
-                user_id_secret,
-                access
+                access,
+                access_secret,
+                refresh_token
             ))
             cur.execute("""UPDATE users SET 
             redditname ='{}'
             WHERE
             email = '{}'
-            """.format(username, email)
-            )
+            """.format(
+                username,
+                email
+            ))
             db.commit()
             return True, None
         except:
