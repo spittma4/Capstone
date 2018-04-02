@@ -1,4 +1,4 @@
-from bottle import template, run, route, get, post, redirect, request, response
+from bottle import template, run, route, get, post, redirect, request, response, static_file
 import uuid
 
 import core
