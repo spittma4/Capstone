@@ -14,12 +14,12 @@
 <div class="wrapper">
 	
 	<div class="box header">
-		<h1>KSU</h1><h2>socialsuite</h2>
+		<a href="/home"><h1>KSU</h1><h2>socialsuite</h2></a>
 	</div>
 	
 	<div class="login">
-			Welcome, {{username}}!<br>
-			<a href="/signout">Signout.</a><br>
+			Welcome, {{username}}!<br><br>
+			<a href="/signout">Signout</a><br>
 	</div>
 	
 	<div class="box sidebar">
@@ -63,8 +63,8 @@
 			    <a href="#">Tweet</a>
 			    <a href="#">Analytics</a>
 			</div>
-			<a href="#about">About</a>
-			<a href="#contact">Contact</a>
+			<a href="/about">About</a>
+			<a href="/contact">Contact</a>
 			<a href="#contact">Settings</a>
 
 
@@ -76,9 +76,11 @@
 
 	</div>
 	
-	<div class="box footer">Footer<br>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
+	<div class="box footer">
+		All your social media, in one place.<br>
+		Simple, Easy, Done.<br>
+		Kent State University<br>
+		CS Capstone Spring 2018<br>
 	</div>
 
 </div>
