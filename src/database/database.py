@@ -1,7 +1,7 @@
 #Jack
 #Stuart
 
-import private
+from . import private
 import string
 import pymysql
 import hashlib

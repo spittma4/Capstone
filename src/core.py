@@ -59,11 +59,6 @@ class Core:
         twitterName = 'hknapp4ksu'
         self.db.add_twitter(twitterName, access_token, access_token_secret, email)
 
-    # get a users last tweets in the day range as a list
-    # dates are mm-dd-yyyy
-    def twitter_getTweetsRange(self, email, startDay, endDay):
-        pass
-
     def twitter_getTweetsN(self, email, n):
         twitterName, code = self.db.fetch_twittername(email)
         access, code = self.db.fetch_twitter(email, twitterName)
@@ -73,7 +68,6 @@ class Core:
     # post a tweet for a user
     def twitter_postTweet(self, email, contents):
         twitterName, code = self.db.fetch_twittername(email)
-        print('###############################################################################################################################################')
         access, code = self.db.fetch_twitter(email, twitterName)
         self.twitter.tweet(access[1], access[2], contents)
 

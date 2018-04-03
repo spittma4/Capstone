@@ -3,7 +3,7 @@
 """This example demonstrates the flow for retrieving a refresh token.
 
 In order for this example to work your application's redirect URI must be set
-to http://localhost:8080.
+to http://ksusocialsuite.site:8080.
 
 This tool can be used to conveniently create refresh tokens for later use with
 your web application OAuth2 credentials.
@@ -23,7 +23,7 @@ def receive_connection():
     """
     server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-    server.bind(('localhost', 8080))
+    server.bind(('0.0.0.0', 8080))
     server.listen(1)
     client = server.accept()[0]
     server.close()
@@ -43,7 +43,7 @@ def main():
           'token for: https://www.reddit.com/prefs/apps/')
     print('Click the create an app button. Put something in the name '
           'field and select the script radio button.')
-    print('Put http://localhost:8080 in the redirect uri field and '
+    print('Put http://ksusocialsuite.site:8080 in the redirect uri field and '
           'click create app')
     client_id = input('Enter the client ID, it\'s the line just under '
                       'Personal use script at the top: ')
@@ -64,7 +64,7 @@ def main():
 
     reddit = praw.Reddit(client_id=client_id.strip(),
                          client_secret=client_secret.strip(),
-                         redirect_uri='http://localhost:8080',
+                         redirect_uri='http://ksusocialsuite.site:8080',
                          user_agent='praw_refresh_token_example')
     state = str(random.randint(0, 65000))
     url = reddit.auth.url(scopes, state, 'permanent')
