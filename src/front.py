@@ -67,6 +67,18 @@ def signup():
         status = ''
     return template('signup', status=status)
 
+@route('/about')
+def about():
+    username = get_session()
+
+    return template('about', username=get_session())
+
+@route('/contact')
+def about():
+    username = get_session()
+
+    return template('contact', username=get_session())
+
 
 @post('/auth')
 def auth():
@@ -118,7 +130,7 @@ def twitter():
         twitterlink = _coreKSU.twitter_getAuthLink(username)
     else:
         tweets = _coreKSU.twitter_getTweetsN(username, ntweets)
-    return template('twitter', tweets=tweets, twitterlink=twitterlink, pendingTwitter=pendingTwitter)
+    return template('twitter', tweets=tweets, twitterlink=twitterlink, pendingTwitter=pendingTwitter, username=get_session())
 
 @post('/inserttwitter')
 def inserttwitter():
