@@ -79,6 +79,11 @@ def about():
 
     return template('contact', username=get_session())
 
+@route('/settings')
+def about():
+    username = get_session()
+
+    return template('settings', username=get_session())
 
 @post('/auth')
 def auth():
