@@ -71,7 +71,7 @@ function myFunction() {
 			</div>
 			<a href="/about">About</a>
 			<a href="/contact">Contact</a>
-			<a href="#contact">Settings</a>
+			<a href="/settings">Settings</a>
 
 
 		</div>
