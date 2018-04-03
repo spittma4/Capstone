@@ -1,59 +1,158 @@
+<!--
+	Home Template
+	Uses: Bottle Template, CSS Grid, Custom KSUSocialSuite Core Application
+-->
+
 <!DOCTYPE html>
 <html>
-<head> 
+<head>
+	<link type="text/css" href="/static/css/styles.css" rel="stylesheet">
+  	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
 <script>
 function myFunction() {
     document.getElementById("getpin").innerHTML = 'Put pin here:<br><input type="text" name="pin"><input type="submit" value="Add Twitter">';
 }
 </script>
 
-</head>
 <body>
+<div class="wrapper">
+	
+	<div class="box header">
+		<a href="/home"><h1>KSU</h1><h2>socialsuite</h2></a>
+	</div>
+	
+	<div class="login">
+			Welcome, {{username}}!<br><br>
+			<a href="/signout">Signout</a><br>
+	</div>
+	
+	<div class="box sidebar">
+		<div class="sidenav">
 
-% if pendingTwitter:
-<a href="{{twitterlink}}" onclick="myFunction()" target="_blank">Add twitter account.</a>
-<form id="getpin" action="/inserttwitter" method="POST"></form><br><br>
-% end
+			<button class="dropdown-btn">Admin Settings 
+			 	<i class="fa fa-caret-down"></i>
+			</button>
+			<div class="dropdown-container">
+			  	<a href="#">List Users</a>
+			    <a href="#">Add User</a>
+			    <a href="#">Remove User</a>
+			</div>
 
-% if not pendingTwitter:
-<form action="/tweet" method="POST">
-<input type="text" name="text"><br>
-<input type="submit" value="Tweet">
-</form>
-% if len(tweets) == 0:
-<p>You have no tweets yet!</p>
-% end
-% if len(tweets) > 0:
-<h1>Previous Tweets</h1>
-<form action='/twitter' method="GET">
-<select name='count'>
-% count = 5
-% while count < 30:
-	<option value='{{count}}'>{{count}}</option>
-%	count += 5
-% end
-% while count < 71:
-	<option value='{{count}}'>{{count}}</option>
-%	count += 10
-% end
-</select>
-<input type='submit' value='Load tweets'>
-</form>
-<table>
-<tr>
-	<th>Tweet contents</th>
-	<th>Favorites</th>
-	<th>Retweets</th>
-</tr>
-% for tweet in tweets:
-<tr>
-	<td>{{tweet[0]}}</td>
-	<td>{{tweet[1]}}</td>
-	<td>{{tweet[2]}}</td>
-</tr>
-%end
-</table>
-% end
-% end
+			<button class="dropdown-btn">
+				Instagram <img src="/static/img/instagram.png" height=40px align="center"> 
+			 	<i class="fa fa-caret-down"></i>
+			</button>
+			<div class="dropdown-container">
+			  	<a href="#">Dashboard</a>
+			    <a href="#">Post</a>
+			    <a href="#">Analytics</a>
+			</div>
+
+			<button class="dropdown-btn">
+				Reddit <img src="/static/img/reddit.png" height=40px align="center">
+				<i class="fa fa-caret-down"></i>	
+			</button>
+			<div class="dropdown-container">
+			  	<a href="#">Dashboard</a>
+			    <a href="#">Post</a>
+			    <a href="#">Analytics</a>
+			</div>
+
+			<button class="dropdown-btn">
+				Twitter <img src="/static/img/twitter.png" height=40px align="center">
+				<i class="fa fa-caret-down"></i>
+			</button>
+			<div class="dropdown-container">
+			  	<a href="/twitter">Dashboard</a>
+			    <a href="#">Tweet</a>
+			    <a href="#">Analytics</a>
+			</div>
+			<a href="/about">About</a>
+			<a href="/contact">Contact</a>
+			<a href="#contact">Settings</a>
+
+
+		</div>
+	</div>
+	
+	<div class="box content">
+		% if pendingTwitter:
+		<a href="{{twitterlink}}" onclick="myFunction()" target="_blank">Add twitter account.</a>
+		<form id="getpin" action="/inserttwitter" method="POST"></form><br><br>
+		% end
+
+		% if not pendingTwitter:
+		<form action="/tweet" method="POST">
+		<input type="text" name="text"><br>
+		<input type="submit" value="Tweet">
+		</form>
+		% if len(tweets) == 0:
+		<p>You have no tweets yet!</p>
+		% end
+		% if len(tweets) > 0:
+		<h1>Previous Tweets</h1>
+		<form action='/twitter' method="GET">
+		<select name='count'>
+		% count = 5
+		% while count < 30:
+			<option value='{{count}}'>{{count}}</option>
+		%	count += 5
+		% end
+		% while count < 71:
+			<option value='{{count}}'>{{count}}</option>
+		%	count += 10
+		% end
+		</select>
+		<input type='submit' value='Load tweets'>
+		</form>
+		<table>
+		<tr>
+			<th>Tweet contents</th>
+			<th>Favorites</th>
+			<th>Retweets</th>
+		</tr>
+		% for tweet in tweets:
+		<tr>
+			<td>{{tweet[0]}}</td>
+			<td>{{tweet[1]}}</td>
+			<td>{{tweet[2]}}</td>
+		</tr>
+		%end
+		</table>
+		% end
+		% end
+
+	</div>
+	
+	<div class="box footer">
+		All your social media, in one place.<br>
+		Simple, Easy, Done.<br>
+		Kent State University<br>
+		CS Capstone Spring 2018<br>
+
+	</div>
+
+</div>
+
+<script>
+/* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
+var dropdown = document.getElementsByClassName("dropdown-btn");
+var i;
+
+for (i = 0; i < dropdown.length; i++) {
+  dropdown[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var dropdownContent = this.nextElementSibling;
+    if (dropdownContent.style.display === "block") {
+      dropdownContent.style.display = "none";
+    } else {
+      dropdownContent.style.display = "block";
+    }
+  });
+}
+</script>
+
 </body>
 </html>
