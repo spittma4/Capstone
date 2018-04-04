@@ -91,9 +91,10 @@
 		
 		<p>Jack Dauphers</p>
 		<p>Hayden Knapp</p>
-		<p>Stew McCaige</p> 
+		<p>Stu McKaige</p> 
 		<p>Jason Penza</p>
 		<p>Sam Pittman</p>
+		<img src="/static/img/sam-pittman.jpg">
 
 	</div>
 	
