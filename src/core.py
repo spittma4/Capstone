@@ -6,14 +6,17 @@
 
 from database.database import Database
 from social_media.twitter import twitter_api
+from social_media.reddit import reddit_api
 
 class Core:
     db = None
     twitter = None
+    reddit = None
 
     def __init__(self):
         self.db = Database()
         self.twitter = twitter_api.twitterApi()
+        self.reddit = reddit_api.redditApi()
 
 ####################################################################################
     # user functions
@@ -65,6 +68,10 @@ class Core:
         tweets = self.twitter.get_tweets_since(access[1], access[2], twitterName, None, n)
         return tweets
 
+    def get_twitterName(self, email):
+        name, code = self.db.fetch_twitter(email, twitterName)
+        return name
+
     # post a tweet for a user
     def twitter_postTweet(self, email, contents):
         twitterName, code = self.db.fetch_twittername(email)
@@ -76,3 +83,7 @@ class Core:
         if res[0] == 'None':
             return False
         return True
+
+    # Reddit
+    def get_reddit_authen_url(self, client_id, client_secret):
+        return self.reddit.get_authen_url(client_id, client_secret)

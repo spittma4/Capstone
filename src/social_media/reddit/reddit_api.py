@@ -14,7 +14,7 @@ class redditApi:
 
     reddits = {}
     def get_authen_url(self, client_id, client_secret):
-        reddit = praw.Reddit(client_id=client_id.strip(), client_secret=client_secret.strip(), redirect_uri='http://ksusocialsuite.site:8080', user_agent='ksu_social_suite')
+        reddit = praw.Reddit(client_id=client_id.strip(), client_secret=client_secret.strip(), redirect_uri='http://ksusocialsuite.site:8080/redditredirect', user_agent='ksu_social_suite')
         state = str(int(random.random() * 999999))
 
         scopes = ['creddits', 'edit', 'flair', 'history', 'identity',

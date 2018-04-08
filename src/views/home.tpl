@@ -49,7 +49,7 @@
 				<i class="fa fa-caret-down"></i>	
 			</button>
 			<div class="dropdown-container">
-			  	<a href="#">Dashboard</a>
+			  	<a href="/reddit">Dashboard</a>
 			    <a href="#">Post</a>
 			    <a href="#">Analytics</a>
 			</div>

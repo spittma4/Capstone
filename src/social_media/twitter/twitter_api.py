@@ -9,6 +9,7 @@ request_token_url = 'https://api.twitter.com/oauth/request_token'
 access_token_url = 'https://api.twitter.com/oauth/access_token'
 authorize_url = 'https://api.twitter.com/oauth/authorize'
 
+#import private
 from . import private
 
 class twitterApi:
@@ -94,5 +95,7 @@ class twitterApi:
         client = oauth2.Client(consumer, token)
         response, data = client.request(access_token_url, "POST")
         access_token = dict(urllib.parse.parse_qsl(data.decode('utf-8')))
+        print("Response: ", response)
+        print("Data: ", data)
 
         return access_token['oauth_token'], access_token['oauth_token_secret']

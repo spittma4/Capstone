@@ -61,17 +61,16 @@ There really is a Linux, and these people are using it, but it is just a part of
             if word in twitterPage:
                 total += 1
         self.assertGreaterEqual(total + 10, segmentLength)
-    """
     def test_005_get_tweets(self):
         testApi = twitterApi()
         results = testApi.get_tweets_since(private.OWNER_ACCESS_TOKEN, private.OWNER_ACCESS_TOKEN_SECRET, 'hknapp4ksu')
         for result in results:
             print(result)
-    """
     def test_006_get_auth_url(self):
         testApi = twitterApi()
         url = testApi.get_signUpUrl()
         print(url)
+"""
     def test_007_get_tokens(self):
         testApi = twitterApi()
         url = testApi.get_signUpUrl('hknapp4ksu')
@@ -79,6 +78,5 @@ There really is a Linux, and these people are using it, but it is just a part of
         pin = str(input("Enter pin: "))
         access_token, access_token_secret = testApi.get_userAccess(pin, 'hknapp4ksu')
         print("token: {}, secret: {}".format(access_token, access_token_secret))
-    """
 if __name__ == '__main__':
     unittest.main(verbosity = 2)

@@ -150,5 +150,22 @@ def tweet():
     _coreKSU.twitter_postTweet(username, text)
     redirect('/twitter')
 
+@route('/reddit')
+def reddit():
+    username = get_session()
+
+    return template('reddit')
+
+@route('/addreddit')
+def addreddit():
+    username = get_session()
+    return template('addreddit')
+
+@route('/redditurl')
+def redditurl():
+    username = get_session()
+    print("got to here")
+    redirect(_coreKSU.get_reddit_authen_url(request.forms.client_id, request.forms.client_secret))
+
 run(host='0.0.0.0', port=8080)
 
