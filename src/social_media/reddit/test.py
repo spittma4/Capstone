@@ -1,9 +1,9 @@
 import sys, os
 import praw
 import authent
-reddit = praw.Reddit(client_id='6vkAnnFdRTWXBw',
-                     client_secret='dqZVH2dmijBkUHfc6S1ZAA-gMFE',
-                     refresh_token='19117588746-VnRd3xKos0Z5z1ZbfrMLzpoj1aI',
+reddit = praw.Reddit(client_id='6yqBkDYCr4TwRA',
+                     client_secret='-RXe4nrSKGoEwITClsuNeeGZKlo',
+                     refresh_token='6401277116-I7Dj-UX_jggkOj-3eslsl8_ufY4',
                      user_agent='testscript by /u/ksusocial')
 #print(reddit.auth.scopes()) -- shows what access we have to certain account
 #reddit.subreddit('some_subreddit').submit('Some title', url='https://example.com').mod.distinguish(sticky=True)

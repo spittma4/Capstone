@@ -3,7 +3,7 @@
 <head>
 <script>
 	function stepTwo() {
-		redditForm = "<form id='redditForm' action='/redditurl'>Id:<br><input type='text' name='id'><br>Secret:<br><input type='text' name='secret'><input type='submit'></form>"
+		redditForm = "<form id='redditForm' action='/redditurl' method='POST'>Id:<br><input type='text' name='id'><br>Secret:<br><input type='text' name='secret'><input type='submit'></form>"
 		document.getElementById("goto").outerHTML = redditForm;
 	}
 </script>
