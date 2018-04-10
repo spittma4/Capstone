@@ -31,7 +31,8 @@ class redditApi:
         reddit = self.reddits[email]
         return reddit.auth.authorize(code)
 
-    def post(self, subreddit, client_id, client_secret, refresh_token, agent = "KSU_Social_Suite"):
+    def post(self, subreddit, client_id, client_secret, refresh_token, title, contents):
+        agent = "KSU_Social_Suite"
         reddit = praw.Reddit(client_id = client_id, client_secret = client_secret, refresh_token = refresh_token,  user_agent = agent)
         sr = reddit.subreddit(subreddit)
-        sr.submit('Test', 'Hello Capstone')
+        sr.submit(title, contents)

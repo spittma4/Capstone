@@ -94,8 +94,8 @@ class Core:
     def reddit_save_three(self, email, client_id, client_secret, refresh_token):
         self.db.add_reddit(email, client_id, client_secret, refresh_token, email)
 
-    def reddit_post(self, email, subreddit):
+    def reddit_post(self, email, subreddit, title, contents):
         stuff = self.db.fetch_reddit(email, email)
         stuff = stuff[0]
-        self.reddit.post(subreddit, stuff[1], stuff[2], stuff[3])
+        self.reddit.post(subreddit, stuff[1], stuff[2], stuff[3], title, contents)
 

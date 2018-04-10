@@ -183,7 +183,11 @@ def redditredirect():
 def addreddit():
     username = get_session()
     subreddit = request.forms.subreddit.strip()
-    _coreKSU.reddit_post(username, subreddit)
+    title = request.forms.title
+    contents = request.forms.contents
+    print(title)
+    print(contents)
+    _coreKSU.reddit_post(username, subreddit, title, contents)
     redirect('/reddit')
 
 run(host='0.0.0.0', port=80)
