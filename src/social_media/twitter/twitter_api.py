@@ -9,6 +9,7 @@ request_token_url = 'https://api.twitter.com/oauth/request_token'
 access_token_url = 'https://api.twitter.com/oauth/access_token'
 authorize_url = 'https://api.twitter.com/oauth/authorize'
 
+#import private
 from . import private
 
 class twitterApi:
@@ -50,6 +51,8 @@ class twitterApi:
         if len(part) > 0:
             response, data = client.request(statuses_resource_url.format(part) + '&in_reply_to_status_id={}'.format(lastTweetId), "POST")
         """
+        print("Response ", response)
+        print("Data ", data)
 
     def get_tweets_since(self, accessToken, accessTokenSecret, twittername, last_stored_id=None, numberOfTweets=100):
         resource_url = 'https://api.twitter.com/1.1/search/tweets.json'
@@ -94,5 +97,7 @@ class twitterApi:
         client = oauth2.Client(consumer, token)
         response, data = client.request(access_token_url, "POST")
         access_token = dict(urllib.parse.parse_qsl(data.decode('utf-8')))
+        print("Response: ", response)
+        print("Data: ", data)
 
-        return access_token['oauth_token'], access_token['oauth_token_secret']
+        return access_token['oauth_token'], access_token['oauth_token_secret'], access_token['screen_name']

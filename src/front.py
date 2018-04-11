@@ -7,6 +7,8 @@ _coreKSU = core.Core()
 
 _logins = {}
 
+_redditInfo = {}
+
 #Function to set a cookie for a session
 def add_session(username):
     cookie = str(uuid.uuid4())
@@ -142,6 +144,7 @@ def inserttwitter():
     username = get_session()
     pin = request.forms.get("pin")
     _coreKSU.twitter_addTwitterInfo(username, pin)
+    redirect('/twitter')
 
 @post('/tweet')
 def tweet():
@@ -150,5 +153,54 @@ def tweet():
     _coreKSU.twitter_postTweet(username, text)
     redirect('/twitter')
 
-run(host='0.0.0.0', port=8080)
+@route('/reddit')
+def reddit():
+    username = get_session()
+    return template('reddit')
+
+@route('/addreddit')
+def addreddit():
+    username = get_session()
+    return template('addreddit')
+
+@post('/redditurl')
+def redditurl():
+    username = get_session()
+    print(username)
+    print(request.forms.id)
+    print(request.forms.secret)
+    _redditInfo[username] = (request.forms.id, request.forms.secret)
+    redirect(_coreKSU.get_reddit_authen_url(username, request.forms.id, request.forms.secret))
+
+@route('/redditredirect')
+def redditredirect():
+    username = get_session()
+    code = request.params.code
+    thing = _coreKSU.reddit_authorize(username, code)
+    _coreKSU.reddit_save_three(username, _redditInfo[username][0], _redditInfo[username][1], thing)
+    redirect('/twitter')
+
+@post('/redditpost')
+def addreddit():
+    username = get_session()
+    subreddit = request.forms.subreddit.strip()
+    title = request.forms.title
+    contents = request.forms.contents
+    _coreKSU.reddit_post(username, subreddit, title, contents)
+    redirect('/reddit')
+
+@post('/postall')
+def addreddit():
+    username = get_session()
+    subreddit = request.forms.subreddit.strip()
+    title = request.forms.title
+    contents = request.forms.contents
+    print(title)
+    print(contents)
+    print(subreddit)
+    _coreKSU.twitter_postTweet(username, contents)
+    _coreKSU.reddit_post(username, subreddit, title, contents)
+    redirect('/home')
+
+run(host='0.0.0.0', port=80)
 

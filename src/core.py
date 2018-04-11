@@ -6,14 +6,17 @@
 
 from database.database import Database
 from social_media.twitter import twitter_api
+from social_media.reddit import reddit_api
 
 class Core:
     db = None
     twitter = None
+    reddit = None
 
     def __init__(self):
         self.db = Database()
         self.twitter = twitter_api.twitterApi()
+        self.reddit = reddit_api.redditApi()
 
 ####################################################################################
     # user functions
@@ -55,8 +58,8 @@ class Core:
 
     # takes the users key and adds oauth info to the db
     def twitter_addTwitterInfo(self, email, pin):
-        access_token, access_token_secret = self.twitter.get_userAccess(pin, email)
-        twitterName = 'hknapp4ksu'
+        access_token, access_token_secret, twitterName = self.twitter.get_userAccess(pin, email)
+#        twitterName = 'hknapp4ksu'
         self.db.add_twitter(twitterName, access_token, access_token_secret, email)
 
     def twitter_getTweetsN(self, email, n):
@@ -64,6 +67,10 @@ class Core:
         access, code = self.db.fetch_twitter(email, twitterName)
         tweets = self.twitter.get_tweets_since(access[1], access[2], twitterName, None, n)
         return tweets
+
+    def get_twitterName(self, email):
+        name, code = self.db.fetch_twittername(email)
+        return name
 
     # post a tweet for a user
     def twitter_postTweet(self, email, contents):
@@ -76,3 +83,19 @@ class Core:
         if res[0] == 'None':
             return False
         return True
+
+    # Reddit
+    def get_reddit_authen_url(self, email, client_id, client_secret):
+        return self.reddit.get_authen_url(email, client_id, client_secret)
+
+    def reddit_authorize(self, email, code):
+        return self.reddit.get_authorize(email, code)
+
+    def reddit_save_three(self, email, client_id, client_secret, refresh_token):
+        self.db.add_reddit(email, client_id, client_secret, refresh_token, email)
+
+    def reddit_post(self, email, subreddit, title, contents):
+        stuff = self.db.fetch_reddit(email, email)
+        stuff = stuff[0]
+        self.reddit.post(subreddit, stuff[1], stuff[2], stuff[3], title, contents)
+
