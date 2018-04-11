@@ -28,5 +28,4 @@ class Mongo:
                 "_retweetCount":tweet[2],
             })
 
-    def write_collection(self, collection, listDict):
-        #store replies' text
+
