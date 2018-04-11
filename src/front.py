@@ -144,6 +144,7 @@ def inserttwitter():
     username = get_session()
     pin = request.forms.get("pin")
     _coreKSU.twitter_addTwitterInfo(username, pin)
+    redirect('/twitter')
 
 @post('/tweet')
 def tweet():
@@ -177,7 +178,7 @@ def redditredirect():
     code = request.params.code
     thing = _coreKSU.reddit_authorize(username, code)
     _coreKSU.reddit_save_three(username, _redditInfo[username][0], _redditInfo[username][1], thing)
-    return 'Looks like it worked'
+    redirect('/twitter')
 
 @post('/redditpost')
 def addreddit():
@@ -185,10 +186,21 @@ def addreddit():
     subreddit = request.forms.subreddit.strip()
     title = request.forms.title
     contents = request.forms.contents
-    print(title)
-    print(contents)
     _coreKSU.reddit_post(username, subreddit, title, contents)
     redirect('/reddit')
+
+@post('/postall')
+def addreddit():
+    username = get_session()
+    subreddit = request.forms.subreddit.strip()
+    title = request.forms.title
+    contents = request.forms.contents
+    print(title)
+    print(contents)
+    print(subreddit)
+    _coreKSU.twitter_postTweet(username, contents)
+    _coreKSU.reddit_post(username, subreddit, title, contents)
+    redirect('/home')
 
 run(host='0.0.0.0', port=80)
 
