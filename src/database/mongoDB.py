@@ -1,31 +1,26 @@
 from pymongo import MongoClient
 from bson.objectid import ObjectId
+import private as p
 
 class Mongo:
-    def __init__(self):
-        
-
-    def set_client(self, address):
-        self.client = MongoClient(address)
-        
-    def set_db(self, client, DBname):
-        self.db = client[DBname]
-            
-    def set_collection(self, collection):
-        self.collection = self.db.[collection]
+    def __init__(self, email, tweet=None):
+        address="mongodb://{}:{}@ds019866.mlab.com:19866/ksusocialsuite".format(p.mongo_username, p.mongo_password)
+        self.client = MongoClient(address) 
+        self.db = client['ksusocialsuite']
+        self.email = email.replace('@', '...')
+        self.collection = self.db[self.email]
+        if tweet:
+            self.write_tweet(tweet)
 
     def read_collection(self):
         fromMongo = list(self.collection.find())
         return result
 
-    def write_tweets(self, tweets):
+    def write_tweets(self, tweet):
         #store text, retweets and favorites
         #takes list of tuples
-        for tweet in tweets:
-            self.collection.insert({
-                "_text":tweet[0],
-                "_favCount":tweet[1]
-                "_retweetCount":tweet[2],
-            })
+        self.collection.insert_one({
+            "_text":tweet
+        })
 
 
