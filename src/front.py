@@ -156,7 +156,10 @@ def tweet():
 @route('/reddit')
 def reddit():
     username = get_session()
-    return template('reddit')
+    redditlink = ''
+    pendingReddit = ''
+
+    return template('reddit', username=get_session(), redditlink=redditlink, pendingReddit=pendingReddit)
 
 @route('/addreddit')
 def addreddit():
