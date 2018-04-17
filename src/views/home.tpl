@@ -29,9 +29,7 @@
 			 	<i class="fa fa-caret-down"></i>
 			</button>
 			<div class="dropdown-container">
-			  	<a href="#">List Users</a>
-			    <a href="#">Add User</a>
-			    <a href="#">Remove User</a>
+			  	<a href="/settings/users">Users</a>
 			</div>
 
 			<button class="dropdown-btn">
@@ -39,9 +37,8 @@
 			 	<i class="fa fa-caret-down"></i>
 			</button>
 			<div class="dropdown-container">
-			  	<a href="#">Dashboard</a>
-			    <a href="#">Post</a>
-			    <a href="#">Analytics</a>
+			  	<a href="/instagram">Dashboard</a>
+			    <a href="/instagramanalytics">Analytics</a>
 			</div>
 
 			<button class="dropdown-btn">
@@ -50,8 +47,7 @@
 			</button>
 			<div class="dropdown-container">
 			  	<a href="/reddit">Dashboard</a>
-			    <a href="#">Post</a>
-			    <a href="#">Analytics</a>
+			    <a href="/redditanalytics">Analytics</a>
 			</div>
 
 			<button class="dropdown-btn">
@@ -60,27 +56,18 @@
 			</button>
 			<div class="dropdown-container">
 			  	<a href="/twitter">Dashboard</a>
-			    <a href="#">Tweet</a>
-			    <a href="#">Analytics</a>
+			    <a href="/twitteranalytics">Analytics</a>
 			</div>
 			<a href="/about">About</a>
 			<a href="/contact">Contact</a>
 			<a href="/settings">Settings</a>
 
-
 		</div>
 	</div>
 	
 	<div class="box content">
-		<form action='/postall' method='post'>
-			Post contents<br>
-			<textarea name='contents'></textarea><br>
-			Title (for Reddit)<br>
-			<input type='text' name='title'><br>
-			Subreddit (for Reddit)<br>
-			<input type='text' name='subreddit'><br>
-			<input type='submit' value='Post All'>
-		</form>
+		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
 	</div>
 	
 	<div class="box footer">

@@ -35,9 +35,7 @@ function myFunction() {
 			 	<i class="fa fa-caret-down"></i>
 			</button>
 			<div class="dropdown-container">
-			  	<a href="#">List Users</a>
-			    <a href="#">Add User</a>
-			    <a href="#">Remove User</a>
+			  	<a href="/settings/users">Users</a>
 			</div>
 
 			<button class="dropdown-btn">
@@ -45,9 +43,8 @@ function myFunction() {
 			 	<i class="fa fa-caret-down"></i>
 			</button>
 			<div class="dropdown-container">
-			  	<a href="#">Dashboard</a>
-			    <a href="#">Post</a>
-			    <a href="#">Analytics</a>
+			  	<a href="/instagram">Dashboard</a>
+			    <a href="/instagramanalytics">Analytics</a>
 			</div>
 
 			<button class="dropdown-btn">
@@ -55,9 +52,8 @@ function myFunction() {
 				<i class="fa fa-caret-down"></i>	
 			</button>
 			<div class="dropdown-container">
-			  	<a href="#">Dashboard</a>
-			    <a href="#">Post</a>
-			    <a href="#">Analytics</a>
+			  	<a href="/reddit">Dashboard</a>
+			    <a href="/redditanalytics">Analytics</a>
 			</div>
 
 			<button class="dropdown-btn">
@@ -66,13 +62,11 @@ function myFunction() {
 			</button>
 			<div class="dropdown-container">
 			  	<a href="/twitter">Dashboard</a>
-			    <a href="#">Tweet</a>
-			    <a href="#">Analytics</a>
+			    <a href="/twitteranalytics">Analytics</a>
 			</div>
 			<a href="/about">About</a>
 			<a href="/contact">Contact</a>
 			<a href="/settings">Settings</a>
-
 
 		</div>
 	</div>
@@ -85,44 +79,20 @@ function myFunction() {
 
 		% if not pendingTwitter:
 		<form action="/tweet" method="POST">
-		<input type="text" name="text"><br>
-		<input type="submit" value="Tweet">
+		What's Happening?<br>
+		<input class="tweetContent" type="text" name="text"><br>
+		<input class="tweetButton" type="submit" value="Tweet">
 		</form>
-		% if len(tweets) == 0:
-		<p>You have no tweets yet!</p>
-		% end
-		% if len(tweets) > 0:
-		<h1>Previous Tweets</h1>
-		<form action='/twitter' method="GET">
-		<select name='count'>
-		% count = 5
-		% while count < 30:
-			<option value='{{count}}'>{{count}}</option>
-		%	count += 5
-		% end
-		% while count < 71:
-			<option value='{{count}}'>{{count}}</option>
-		%	count += 10
-		% end
-		</select>
-		<input type='submit' value='Load tweets'>
-		</form>
-		<table>
-		<tr>
-			<th>Tweet contents</th>
-			<th>Favorites</th>
-			<th>Retweets</th>
-		</tr>
-		% for tweet in tweets:
-		<tr>
-			<td>{{tweet[0]}}</td>
-			<td>{{tweet[1]}}</td>
-			<td>{{tweet[2]}}</td>
-		</tr>
-		%end
-		</table>
-		% end
-		% end
+
+		<br>
+		<a 
+			class="twitter-timeline" 
+			data-width= 40% 
+			data-chrome= "nofooter"
+			href="https://twitter.com/Sampitdawg?ref_src=twsrc%5Etfw">
+			Tweets by @Sampitdawg
+		</a> 
+		<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 	</div>
 	
@@ -143,7 +113,7 @@ var i;
 
 for (i = 0; i < dropdown.length; i++) {
   dropdown[i].addEventListener("click", function() {
-    this.classList.toggle("active");
+    this.classList.toggle("active");=]
     var dropdownContent = this.nextElementSibling;
     if (dropdownContent.style.display === "block") {
       dropdownContent.style.display = "none";
