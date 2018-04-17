@@ -7,7 +7,7 @@ body,html {
 }
  
 .wrapper {
-  height: auto;
+  height: 100%;
   min-height: 100%;
   margin: 0px auto;
   padding: 0px auto;
@@ -59,6 +59,7 @@ body,html {
   border-width: : 5px;
   border-image: linear-gradient(to left, #0161B5, #00377B);
   border-image-slice: 1;
+  overflow-y: auto;
 }
 
 .login {
@@ -111,6 +112,57 @@ body,html {
 .box {
   background-color: #EAEDED;
 
+}
+
+.redditSubreddit{
+  width: 30%;
+  border: 2px solid #003173;
+  border-radius: 7.5px;
+  margin: 1%;
+  margin-left: 0%;
+  margin-top: .5%;
+  padding: 5px;
+}
+
+.redditPostContent{
+  width: 60%;
+  border: 2px solid #003173;
+  border-radius: 7.5px;
+  margin: 1%;
+  margin-left: 0%;
+  margin-top: .5%;
+  padding: 5px;
+}
+
+.redditButton{
+  width: 10%;
+  
+  border-radius: 7.5px;
+  margin-left: 0%;
+  padding: 5px;
+  background-color: #FF4500;
+  color: white;
+  font-weight: bold;
+}
+
+.tweetContent{
+  width: 60%;
+  border: 2px solid #003173;
+  border-radius: 7.5px;
+  margin: 1%;
+  margin-left: 0%;
+  margin-top: .5%;
+  padding: 5px;
+}
+
+.tweetButton{
+  width: 10%;
+  
+  border-radius: 7.5px;
+  margin-left: 0%;
+  padding: 5px;
+  background-color: #1C88CC;
+  color: white;
 }
 
 /*Side Navigation Bar CSS*/
@@ -281,4 +333,5 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;      
 }
+
 
