@@ -1,6 +1,6 @@
 from pymongo import MongoClient
 from bson.objectid import ObjectId
-import private as p
+from . import private as p
 
 class Mongo:
     def __init__(self, email, tweet=None):

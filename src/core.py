@@ -5,6 +5,7 @@
 # Stuart Mckaige
 
 from database.database import Database
+from database.mongoDB import Mongo
 from social_media.twitter import twitter_api
 from social_media.reddit import reddit_api
 
@@ -12,6 +13,7 @@ class Core:
     db = None
     twitter = None
     reddit = None
+    mongo = None
 
     def __init__(self):
         self.db = Database()
@@ -59,7 +61,6 @@ class Core:
     # takes the users key and adds oauth info to the db
     def twitter_addTwitterInfo(self, email, pin):
         access_token, access_token_secret, twitterName = self.twitter.get_userAccess(pin, email)
-#        twitterName = 'hknapp4ksu'
         self.db.add_twitter(twitterName, access_token, access_token_secret, email)
 
     def twitter_getTweetsN(self, email, n):
@@ -75,6 +76,7 @@ class Core:
     # post a tweet for a user
     def twitter_postTweet(self, email, contents):
         twitterName, code = self.db.fetch_twittername(email)
+        mongoInstance = Mongo(email, contents)
         access, code = self.db.fetch_twitter(email, twitterName)
         self.twitter.tweet(access[1], access[2], contents)
 
@@ -97,5 +99,6 @@ class Core:
     def reddit_post(self, email, subreddit, title, contents):
         stuff = self.db.fetch_reddit(email, email)
         stuff = stuff[0]
+        mongoInstance = Mongo(email, contents)
         self.reddit.post(subreddit, stuff[1], stuff[2], stuff[3], title, contents)
 
