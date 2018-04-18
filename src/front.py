@@ -126,6 +126,7 @@ def twitter():
     twitterlink = ''
     username = get_session()
     pendingTwitter = not _coreKSU.twitter_hasAccount(username)
+    twitterName = _coreKSU.twitterName(username)
     ntweets = ''
     tweets = ''
     ntweets = request.params.count
@@ -137,7 +138,7 @@ def twitter():
         twitterlink = _coreKSU.twitter_getAuthLink(username)
     else:
         tweets = _coreKSU.twitter_getTweetsN(username, ntweets)
-    return template('twitter', tweets=tweets, twitterlink=twitterlink, pendingTwitter=pendingTwitter, username=get_session())
+    return template('twitter', tweets=tweets, twitterlink=twitterlink, pendingTwitter=pendingTwitter, username=get_session(), twitterName=twitterName)
 
 @post('/inserttwitter')
 def inserttwitter():
