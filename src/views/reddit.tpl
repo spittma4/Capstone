@@ -79,7 +79,7 @@ function myFunction() {
 		% end
 
 		% if not pendingReddit:
-		<form action="/redditPost" method="POST">
+		<form action="/redditpost" method="POST">
 		Subreddit:<br>
 		<input class="redditSubreddit" type="text" name="subreddit" id="subreddit"><br>
 		Title:<br>

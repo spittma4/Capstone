@@ -61,7 +61,7 @@ class Core:
     # takes the users key and adds oauth info to the db
     def twitter_addTwitterInfo(self, email, pin):
         access_token, access_token_secret, twitterName = self.twitter.get_userAccess(pin, email)
-        self.db.add_twitter(twitterName, access_token, access_token_secret, email)
+        self.db.add_twitter(email, access_token, access_token_secret, twitterName)
 
     def twitter_getTweetsN(self, email, n):
         twitterName, code = self.db.fetch_twittername(email)
@@ -94,10 +94,13 @@ class Core:
         return self.reddit.get_authorize(email, code)
 
     def reddit_save_three(self, email, client_id, client_secret, refresh_token):
-        self.db.add_reddit(email, client_id, client_secret, refresh_token, email)
+        username = self.reddit.get_name(client_id, client_secret, refresh_token)
+        self.db.add_reddit(username, client_id, client_secret, refresh_token, email)
 
     def reddit_post(self, email, subreddit, title, contents):
-        stuff = self.db.fetch_reddit(email, email)
+        redditname = self.db.fetch_redditname(email)[0]
+        stuff = self.db.fetch_reddit(email, redditname)
+        print("stuff: {}".format(stuff))
         stuff = stuff[0]
         mongoInstance = Mongo(email, contents)
         self.reddit.post(subreddit, stuff[1], stuff[2], stuff[3], title, contents)

@@ -194,7 +194,9 @@ class Database:
 
 
     def add_reddit(self, username, access, access_secret, refresh_token, email, db=None):
-        print(username, access, access_secret, refresh_token, email)
+        #print(username, access, access_secret, refresh_token, email)
+        print("Reddit username to be added: {}".format(username))
+        print("Email to be added: {}".format(email))
         if(db==None):
             db=self.connection
 

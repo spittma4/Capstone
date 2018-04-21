@@ -36,3 +36,9 @@ class redditApi:
         reddit = praw.Reddit(client_id = client_id, client_secret = client_secret, refresh_token = refresh_token,  user_agent = agent)
         sr = reddit.subreddit(subreddit)
         sr.submit(title, contents)
+
+    def get_name(self, client_id, client_secret, refresh_token):
+        agent = "KSU_Social_Suite"
+        reddit = praw.Reddit(client_id = client_id, client_secret = client_secret, refresh_token = refresh_token,  user_agent = agent)
+        return reddit.user.me()
+
