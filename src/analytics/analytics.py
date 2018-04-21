@@ -1,10 +1,10 @@
 #stuart
 
-import private
+from . import private
 import json
 from watson_developer_cloud import ToneAnalyzerV3
 
-class Analtics:
+class Analytics:
     tone_analyzer = None
 
     def __init__(self):

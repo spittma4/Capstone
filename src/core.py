@@ -8,17 +8,20 @@ from database.database import Database
 from database.mongoDB import Mongo
 from social_media.twitter import twitter_api
 from social_media.reddit import reddit_api
+from analytics import analytics
 
 class Core:
     db = None
     twitter = None
     reddit = None
     mongo = None
+    analytics = None
 
     def __init__(self):
         self.db = Database()
         self.twitter = twitter_api.twitterApi()
         self.reddit = reddit_api.redditApi()
+        self.analytics = analytics.Analytics()
 
 ####################################################################################
     # user functions
@@ -104,4 +107,8 @@ class Core:
         stuff = stuff[0]
         mongoInstance = Mongo(email, contents)
         self.reddit.post(subreddit, stuff[1], stuff[2], stuff[3], title, contents)
+
+    # analytics
+    def analytics_run(self, contentsList):
+        return self.analytics.sentement_analyis(contentsList)
 
