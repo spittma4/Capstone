@@ -1,5 +1,6 @@
 from bottle import template, run, route, get, post, redirect, request, response, static_file
 import uuid
+import time
 
 import core
 
@@ -126,7 +127,7 @@ def twitter():
     twitterlink = ''
     username = get_session()
     pendingTwitter = not _coreKSU.twitter_hasAccount(username)
-    twitterName = _coreKSU.twitterName(username)
+    twitterName = _coreKSU.get_twitterName(username)
     ntweets = ''
     tweets = ''
     ntweets = request.params.count
@@ -170,9 +171,6 @@ def addreddit():
 @post('/redditurl')
 def redditurl():
     username = get_session()
-    print(username)
-    print(request.forms.id)
-    print(request.forms.secret)
     _redditInfo[username] = (request.forms.id, request.forms.secret)
     redirect(_coreKSU.get_reddit_authen_url(username, request.forms.id, request.forms.secret))
 
@@ -199,9 +197,6 @@ def addreddit():
     subreddit = request.forms.subreddit.strip()
     title = request.forms.title
     contents = request.forms.contents
-    print(title)
-    print(contents)
-    print(subreddit)
     _coreKSU.twitter_postTweet(username, contents)
     _coreKSU.reddit_post(username, subreddit, title, contents)
     redirect('/home')

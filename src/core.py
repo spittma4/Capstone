@@ -14,7 +14,6 @@ class Core:
     db = None
     twitter = None
     reddit = None
-    mongo = None
     analytics = None
 
     def __init__(self):
@@ -64,7 +63,7 @@ class Core:
     # takes the users key and adds oauth info to the db
     def twitter_addTwitterInfo(self, email, pin):
         access_token, access_token_secret, twitterName = self.twitter.get_userAccess(pin, email)
-        self.db.add_twitter(email, access_token, access_token_secret, twitterName)
+        self.db.add_twitter(twitterName, access_token, access_token_secret, email)
 
     def twitter_getTweetsN(self, email, n):
         twitterName, code = self.db.fetch_twittername(email)
@@ -103,12 +102,19 @@ class Core:
     def reddit_post(self, email, subreddit, title, contents):
         redditname = self.db.fetch_redditname(email)[0]
         stuff = self.db.fetch_reddit(email, redditname)
-        print("stuff: {}".format(stuff))
         stuff = stuff[0]
         mongoInstance = Mongo(email, contents)
         self.reddit.post(subreddit, stuff[1], stuff[2], stuff[3], title, contents)
 
+    def reddit_hasAccount(self, email):
+        res = self.db.fetch_redditname(email)
+        if res[0] == 'None':
+            return False
+        return True
+
     # analytics
-    def analytics_run(self, contentsList):
+    def analytics_run(self, email):
+        mongo = Mongo(email)
+        contentsList = mongo.read_collection()
         return self.analytics.sentement_analyis(contentsList)
 

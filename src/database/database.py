@@ -15,7 +15,6 @@ USER_DOES_NOT_EXIST = 3
 class Database:
     connection=None
     def __init__(self):
-        print(private.password)
         self.connection = pymysql.connect(host=DB_PATH, user="root", password=private.password, database="prod")
 
     def generate_salt(self):
@@ -194,9 +193,6 @@ class Database:
 
 
     def add_reddit(self, username, access, access_secret, refresh_token, email, db=None):
-        #print(username, access, access_secret, refresh_token, email)
-        print("Reddit username to be added: {}".format(username))
-        print("Email to be added: {}".format(email))
         if(db==None):
             db=self.connection
 
@@ -247,7 +243,6 @@ class Database:
             ))
             result = cur.fetchall()
             result = str(result[0][5])
-            print("result in fetch_redditname: ",result)
             return result, None
         except:
             return False, DATABASE_ERROR
@@ -270,7 +265,6 @@ class Database:
             ))
             result = cur.fetchall()
             result = tuple([result[0][0],result[0][1],result[0][2], result[0][3]])
-            print("result in fetch_reddit: ", result)
             return result, None
         except:
             return False, DATABASE_ERROR
