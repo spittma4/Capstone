@@ -33,23 +33,23 @@ class Analtics:
 
     def sentement_analyis(self,posts):
         result=[]
-        num_posts=len(posts)
         for post in posts:
             data=self.watson_setup(post)
             ans=self.watson_send(data)
             result.append(self.watson_parser(ans))
+        result=self.aggrigate(result)
         return result
 
     def aggrigate(self,sentment):
         result={}
         length=len(sentment)
         for item in sentment:
-            for key in item:
+            for key,value in item.items():
                 if key in result.keys():
-                    result[key]+=sentment[key]
+                    result[key]+=value
                 else:
                     print(key)                    
-                    result[key]=sentment[key]
+                    result[key]=value
 
         for key in result:
             result[key]=result[key]/length
