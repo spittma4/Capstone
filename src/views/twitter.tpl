@@ -89,8 +89,8 @@ function myFunction() {
 			class="twitter-timeline" 
 			data-width= 40% 
 			data-chrome= "nofooter"
-			href="https://twitter.com/Sampitdawg?ref_src=twsrc%5Etfw">
-			Tweets by @Sampitdawg
+			href="https://twitter.com/{{twitterName}}?ref_src=twsrc%5Etfw">
+			Tweets by @{{twitterName}}
 		</a> 
 		<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
