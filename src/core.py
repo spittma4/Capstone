@@ -112,6 +112,9 @@ class Core:
             return False
         return True
 
+    def reddit_getName(self, email):
+        return self.db.fetch_redditname(email)[0]
+
     # analytics
     def analytics_run(self, email):
         mongo = Mongo(email)

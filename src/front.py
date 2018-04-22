@@ -159,9 +159,8 @@ def tweet():
 def reddit():
     username = get_session()
     redditlink = ''
-    pendingReddit = ''
-
-    return template('reddit', username=get_session(), redditlink=redditlink, pendingReddit=pendingReddit)
+    pendingReddit = not _coreKSU.reddit_hasAccount(username)
+    return template('reddit', username=get_session(), redditlink=redditlink, pendingReddit=pendingReddit, redditName=_coreKSU.reddit_getName(username))
 
 @route('/addreddit')
 def addreddit():
@@ -180,7 +179,7 @@ def redditredirect():
     code = request.params.code
     thing = _coreKSU.reddit_authorize(username, code)
     _coreKSU.reddit_save_three(username, _redditInfo[username][0], _redditInfo[username][1], thing)
-    redirect('/twitter')
+    redirect('/reddit')
 
 @post('/redditpost')
 def addreddit():

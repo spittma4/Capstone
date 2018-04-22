@@ -11,9 +11,10 @@
 </head>
 
 <script>
-function myFunction() {
-    document.getElementById("getpin").innerHTML = 'Put pin here:<br><input type="text" name="pin"><input type="submit" value="Add Twitter">';
-}
+	function stepTwo() {
+        redditForm = "<form id='redditForm' action='/redditurl' method='POST'>Id:<br><input type='text' name='id'><br>Secret:<br><input type='text' name='secret'><input type='submit'></form>"
+        document.getElementById("goto").outerHTML = redditForm;
+    }
 </script>
 
 <body>
@@ -74,8 +75,7 @@ function myFunction() {
 	<div class="box content">
 		
 		% if pendingReddit:
-		<a href="{{redditlink}}" onclick="myFunction()" target="_blank">Add Reddit Account</a>
-		<form id="getpin" action="/insertreddit" method="POST"></form><br><br>
+		<p id="goto" >Go here: <a onclick="stepTwo()" target='_blank' href="https://www.reddit.com/prefs/apps/">Reddit authentication.</a></p> 
 		% end
 
 		% if not pendingReddit:
@@ -89,8 +89,8 @@ function myFunction() {
 		<input class="redditButton" type="submit" value="Post to reddit">
 		</form>
 		<br>
-		<script src="https://www.reddit.com/user/GallowBoob/submitted.embed?limit=10&sort=new" type="text/javascript"></script>
-		<script src="https://www.reddit.com/user/GallowBoob/comments.embed?limit=10&sort=new" type="text/javascript"></script>
+		<script src="https://www.reddit.com/user/{{redditName}}/submitted.embed?limit=10&sort=new" type="text/javascript"></script>
+		<script src="https://www.reddit.com/user/{{redditName}}/comments.embed?limit=10&sort=new" type="text/javascript"></script>
 
 	</div>
 	
