@@ -19,9 +19,6 @@ class twitterApi:
 
     MAX_TWEET_LENGTH = 280
     def tweet(self, accessToken, accessTokenSecret, tweetContents):
-        print("Hello from the tweet function!")
-        print("Tweet contents: {}".format(tweetContents))
-        print(accessToken, accessTokenSecret)
         statuses_resource_url = 'https://api.twitter.com/1.1/statuses/update.json?status={}'
         tweetContents = urllib.parse.quote_plus(tweetContents)
         consumer = oauth2.Consumer(private.CONSUMER_KEY, private.CONSUMER_SECRET)
@@ -37,12 +34,8 @@ class twitterApi:
             if len(part) >= self.MAX_TWEET_LENGTH - len(username):
                 if len(lastTweetId) > 0:
                     response, data = client.request(statuses_resource_url.format(part) + '&in_reply_to_status_id={}'.format(lastTweetId), "POST")
-                    print("Hello from the tweet function!2")
                 else:
                     response, data = client.request(statuses_resource_url.format(part), "POST")
-                    print("Hello from the tweet function!1")
-                    print(response)
-                    print(data)
                 data = json.loads(data)
                 lastTweetId = data['id_str']
                 part = '' 
@@ -51,8 +44,6 @@ class twitterApi:
         if len(part) > 0:
             response, data = client.request(statuses_resource_url.format(part) + '&in_reply_to_status_id={}'.format(lastTweetId), "POST")
         """
-        print("Response ", response)
-        print("Data ", data)
 
     def get_tweets_since(self, accessToken, accessTokenSecret, twittername, last_stored_id=None, numberOfTweets=100):
         resource_url = 'https://api.twitter.com/1.1/search/tweets.json'
@@ -97,7 +88,5 @@ class twitterApi:
         client = oauth2.Client(consumer, token)
         response, data = client.request(access_token_url, "POST")
         access_token = dict(urllib.parse.parse_qsl(data.decode('utf-8')))
-        print("Response: ", response)
-        print("Data: ", data)
 
         return access_token['oauth_token'], access_token['oauth_token_secret'], access_token['screen_name']

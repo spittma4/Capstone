@@ -170,7 +170,7 @@ def addreddit():
 @post('/redditurl')
 def redditurl():
     username = get_session()
-    _redditInfo[username] = (request.forms.id, request.forms.secret)
+    _redditInfo[username] = (request.forms.id.strip(), request.forms.secret.strip())
     redirect(_coreKSU.get_reddit_authen_url(username, request.forms.id, request.forms.secret))
 
 @route('/redditredirect')
