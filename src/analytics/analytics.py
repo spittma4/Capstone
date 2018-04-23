@@ -28,7 +28,6 @@ class Analytics:
     def watson_send(self,text):
         tone=self.tone_analyzer.tone(tone_input=text,
                               content_type='text/plain')
-        print(json.dumps(tone))
         return tone
 
     def sentement_analyis(self,posts):
@@ -48,7 +47,6 @@ class Analytics:
                 if key in result.keys():
                     result[key]+=value
                 else:
-                    print(key)                    
                     result[key]=value
 
         for key in result:
