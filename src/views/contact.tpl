@@ -56,14 +56,22 @@
 	</div>
 	
 	<div class="box content">
+		% if len(data) > 0:
 		<h2>
-			Have Questions?
+			Your posts from KSU Social Suite have been...
 		</h2>
 		<p>
-		Please write them on a piece of paper and throw them in the trash can.
-
-		Thanks!
+			<ul>
+				% for key in data:
+				<li>{{data[key]}}% {{key}}.</li>
+				% end
+			</ul>
 		</p>
+		% end
+		% if len(data) == 0:
+		<h2>
+			Looks like you have not posted from KSU Social Suite. Post to your accounts from our app to get some feedback!</h2>
+		% end
 
 	</div>
 	

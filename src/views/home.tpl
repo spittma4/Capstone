@@ -49,7 +49,7 @@
 			  	<a href="/twitter">Dashboard</a>
 			</div>
 			<a href="/about">About</a>
-			<a href="/contact">Contact</a>
+			<a href="/analytics">Analytics</a>
 			<a href="/settings">Settings</a>
 
 		</div>
@@ -57,6 +57,7 @@
 	
 	<div class="box content">
 		<div style='color:red;'>{{redditMessage}}</div><br>
+		% if redditAndTwitter:
 		<h1>Post to Reddit and Twitter</h1><br>
 		<form action='/postall' method='POST'>
 		Post subreddit(for reddit)<br>
@@ -67,7 +68,10 @@
 		<textarea name='contents'></textarea><br>
 		<button>Post to both</button>
 		</form>
-
+		% end
+		% if not redditAndTwitter:
+		<h1>You need to add a reddit account and a twitter account before you can post here!</h1>
+		% end
 
 	</div>
 	

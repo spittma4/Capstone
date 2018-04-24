@@ -64,9 +64,9 @@ def home():
     redditMessage = ''
     if '1' == redditCode:
         redditMessage = 'You cannot post to reddit at this time. Please wait.'
-    print(redditMessage)
-    print(redditCode)
-    return template('home', username=get_session(), redditMessage = redditMessage)
+    redditAndTwitter = _coreKSU.reddit_hasAccount(username) and _coreKSU.twitter_hasAccount(username)
+    print(redditAndTwitter)
+    return template('home', username=get_session(), redditMessage = redditMessage, redditAndTwitter = redditAndTwitter)
 
 @route('/signup')
 def signup():
@@ -81,11 +81,15 @@ def about():
 
     return template('about', username=get_session())
 
-@route('/contact')
+@route('/analytics')
 def about():
     username = get_session()
-
-    return template('contact', username=get_session())
+    data=_coreKSU.analytics_run(username)
+    #data = {'anger': 0.0355845, 'analytical': 0.0758248125, 'sadness': 0.040780375, 'confident': 0.03621475, 'tentative': 0.155517625, 'joy': 0.061957875}
+    print(data)
+    for key in data:
+        data[key] = round(data[key], 4)
+    return template('contact', username=get_session(), data = data)
 
 @route('/settings')
 def about():

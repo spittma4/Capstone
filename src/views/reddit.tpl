@@ -65,7 +65,8 @@
 	<div class="box content">
 		
 		% if pendingReddit:
-		<p id="goto" >Go here: <a onclick="stepTwo()" target='_blank' href="https://www.reddit.com/prefs/apps/">Reddit authentication.</a></p> 
+		<p id="goto" >Go here: <a onclick="stepTwo()" target='_blank' href="https://www.reddit.com/prefs/apps/">Reddit authentication.</a><br>
+		Use this link for the reddit redirect http://ksusocialsuite.site/redditredirect</p>
 		% end
 
 		% if not pendingReddit:
