@@ -103,7 +103,7 @@ class Core:
 
     postTimes = {}
     def reddit_post(self, email, subreddit, title, contents):
-        TIME_TO_WAIT = 30 #seconds
+        TIME_TO_WAIT = 8 * 60 + 1 #seconds
         if email in self.postTimes:
             if time.time() - self.postTimes[email] < TIME_TO_WAIT:
                 print("Cannot post yet!")
@@ -113,7 +113,7 @@ class Core:
         stuff = self.db.fetch_reddit(email, redditname)
         stuff = stuff[0]
         mongoInstance = Mongo(email, contents)
-#       self.reddit.post(subreddit, stuff[1], stuff[2], stuff[3], title, contents)
+        self.reddit.post(subreddit, stuff[1], stuff[2], stuff[3], title, contents)
         return True
 
     def reddit_hasAccount(self, email):

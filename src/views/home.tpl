@@ -57,7 +57,7 @@
 	
 	<div class="box content">
 		<div style='color:red;'>{{redditMessage}}</div><br>
-		Post to Reddit and Twitter<br>
+		<h1>Post to Reddit and Twitter</h1><br>
 		<form action='/postall' method='POST'>
 		Post subreddit(for reddit)<br>
 		<input type='text' name='subreddit'><br>

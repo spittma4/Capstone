@@ -203,8 +203,10 @@ def addreddit():
     subreddit = request.forms.subreddit.strip()
     title = request.forms.title
     contents = request.forms.contents
+    res = _coreKSU.reddit_post(username, subreddit, title, contents)
+    if not res:
+        redirect('/home?reddit=1')
     _coreKSU.twitter_postTweet(username, contents)
-    _coreKSU.reddit_post(username, subreddit, title, contents)
     redirect('/home')
 
 run(host='0.0.0.0', port=80)

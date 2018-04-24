@@ -15,7 +15,7 @@
 		<div class="login-page">
 		  <div class="form">
 		    <form class="login-form" action="/auth" method="POST">
-		      	<input type="text" placeholder="username"/ name = "username" id="username" maxlength="100">
+		      	<input type="text" placeholder="email"/ name = "username" id="username" maxlength="100">
 		      	<input type="password" placeholder="password"/ name="password" id="password" maxlength="100">
 		      	<button type="submit" onclick="confirmationAlert()" name="save">login</button>
 		      	<p class="message">Not registered? <a href="/signup">Create an account!</a></p>
