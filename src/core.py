@@ -9,6 +9,7 @@ from database.mongoDB import Mongo
 from social_media.twitter import twitter_api
 from social_media.reddit import reddit_api
 from analytics import analytics
+import time
 
 class Core:
     db = None
@@ -88,6 +89,7 @@ class Core:
             return False
         return True
 
+
     # Reddit
     def get_reddit_authen_url(self, email, client_id, client_secret):
         return self.reddit.get_authen_url(email, client_id, client_secret)
@@ -99,12 +101,20 @@ class Core:
         username = self.reddit.get_name(client_id, client_secret, refresh_token)
         self.db.add_reddit(username, client_id, client_secret, refresh_token, email)
 
+    postTimes = {}
     def reddit_post(self, email, subreddit, title, contents):
+        TIME_TO_WAIT = 30 #seconds
+        if email in self.postTimes:
+            if time.time() - self.postTimes[email] < TIME_TO_WAIT:
+                print("Cannot post yet!")
+                return False
+        self.postTimes[email] = time.time()
         redditname = self.db.fetch_redditname(email)[0]
         stuff = self.db.fetch_reddit(email, redditname)
         stuff = stuff[0]
         mongoInstance = Mongo(email, contents)
-        self.reddit.post(subreddit, stuff[1], stuff[2], stuff[3], title, contents)
+#       self.reddit.post(subreddit, stuff[1], stuff[2], stuff[3], title, contents)
+        return True
 
     def reddit_hasAccount(self, email):
         res = self.db.fetch_redditname(email)
