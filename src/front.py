@@ -170,7 +170,7 @@ def reddit():
 @route('/addreddit')
 def addreddit():
     username = get_session()
-    return template('addreddit')
+    return template('addreddit', username=get_session())
 
 @post('/redditurl')
 def redditurl():
