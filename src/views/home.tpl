@@ -25,20 +25,12 @@
 	<div class="box sidebar">
 		<div class="sidenav">
 
-			<button class="dropdown-btn">Admin Settings 
-			 	<i class="fa fa-caret-down"></i>
-			</button>
-			<div class="dropdown-container">
-			  	<a href="/settings/users">Users</a>
-			</div>
-
 			<button class="dropdown-btn">
 				Instagram <img src="/static/img/instagram.png" height=40px align="center"> 
 			 	<i class="fa fa-caret-down"></i>
 			</button>
 			<div class="dropdown-container">
 			  	<a href="/instagram">Dashboard</a>
-			    <a href="/instagramanalytics">Analytics</a>
 			</div>
 
 			<button class="dropdown-btn">
@@ -47,7 +39,6 @@
 			</button>
 			<div class="dropdown-container">
 			  	<a href="/reddit">Dashboard</a>
-			    <a href="/redditanalytics">Analytics</a>
 			</div>
 
 			<button class="dropdown-btn">
@@ -56,7 +47,6 @@
 			</button>
 			<div class="dropdown-container">
 			  	<a href="/twitter">Dashboard</a>
-			    <a href="/twitteranalytics">Analytics</a>
 			</div>
 			<a href="/about">About</a>
 			<a href="/contact">Contact</a>
