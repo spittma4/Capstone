@@ -1,7 +1,8 @@
 #stuart
 
-from . import private
+import private
 import json
+from collections import defaultdict
 from watson_developer_cloud import ToneAnalyzerV3
 
 class Analytics:
@@ -17,7 +18,12 @@ class Analytics:
         items=json_item['document_tone']['tones']
         result={}
         for item in items:
-            result[item['tone_id']]=item['score']
+            if item['score']>0.8:
+                result[item['tone_id']]=" high"
+            elif item['score']>0.6:
+                result[item['tone_id']]=" med"
+            else:
+                result[item['tone_id']]=" low"
         return result
 
     def watson_setup(self,post):
@@ -40,16 +46,14 @@ class Analytics:
         return result
 
     def aggrigate(self,sentment):
-        result={}
+        result=defaultdict(int)
         length=len(sentment)
         for item in sentment:
             for key,value in item.items():
-                if key in result.keys():
-                    result[key]+=value
-                else:
-                    result[key]=value
+                newkey=key+value
+                result[newkey]+=1
 
         for key in result:
             result[key]=result[key]/length
 
-        return result
+        return dict(result)
