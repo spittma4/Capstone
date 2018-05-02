@@ -1,6 +1,6 @@
 #stuart
 
-import private
+from . import private
 import json
 from collections import defaultdict
 from watson_developer_cloud import ToneAnalyzerV3
